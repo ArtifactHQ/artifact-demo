@@ -52,7 +52,7 @@ ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development:test"
 
-# Install packages needed to build gems
+# Install packages needed to build gems and compile assets
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
@@ -69,8 +69,12 @@ COPY . .
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
-# Precompile assets
+# Precompile assets (includes dartsass SCSS compilation)
+# This will compile SCSS files and fingerprint all assets
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+
+# Verify assets were built
+RUN ls -la app/assets/builds/ && ls -la public/assets/
 
 # ============================================
 # STAGING - Test production build locally
@@ -102,7 +106,9 @@ FROM base
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development:test"
+    BUNDLE_WITHOUT="development:test" \
+    RAILS_SERVE_STATIC_FILES="true" \
+    RAILS_LOG_TO_STDOUT="true"
 
 # Copy built artifacts from build stage
 COPY --from=build /usr/local/bundle /usr/local/bundle
@@ -118,5 +124,5 @@ USER rails:rails
 # Expose port
 EXPOSE 3000
 
-# Start the server
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+# Start the server with Thruster (handles static assets efficiently)
+CMD ["bin/thrust", "bin/rails", "server", "-b", "0.0.0.0"]

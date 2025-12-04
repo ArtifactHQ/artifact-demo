@@ -24,9 +24,9 @@ module Template
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # Allow embedding in iframe from marketing site
+    # Allow embedding in iframe from marketing site and Fly.io deployments
     # In development: Allow all origins for easy local testing
-    # In production: Restrict to artifact.new only
+    # In production: Restrict to artifact.new and Fly.io domains
     if Rails.env.development?
       config.action_dispatch.default_headers = {
         'X-Frame-Options' => nil  # Allow all origins in development
@@ -34,7 +34,7 @@ module Template
     else
       config.action_dispatch.default_headers = {
         'X-Frame-Options' => nil,
-        'Content-Security-Policy' => "frame-ancestors 'self' https://artifact.new http://artifact.new"
+        'Content-Security-Policy' => "frame-ancestors 'self' https://artifact.new http://artifact.new https://artifact-demo.fly.dev https://artifactmarketingwebsite.fly.dev"
       }
     end
 

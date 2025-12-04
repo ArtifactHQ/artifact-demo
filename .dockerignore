@@ -1,0 +1,74 @@
+# Ignore git files
+.git
+.gitignore
+.gitattributes
+
+# Ignore documentation
+README.md
+CHANGELOG.md
+*.md
+template/
+
+# Ignore development/test files
+.env*
+!.env*.erb
+test/
+spec/
+tmp/
+log/
+storage/*
+!storage/.keep
+
+# Ignore node modules
+node_modules/
+yarn-error.log
+yarn-debug.log*
+
+# Ignore editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore bundler config
+.bundle/
+
+# Ignore coverage reports
+coverage/
+
+# Ignore cache files
+.sass-cache/
+.rubocop-*
+.brakeman.cache
+zeitwerk.cache
+
+# Ignore session data
+sessions/*
+
+# Ignore database files (will be on volume)
+*.sqlite3
+*.sqlite3-*
+
+# Ignore builds (will be regenerated)
+app/assets/builds/*
+public/builds/
+public/assets/
+
+# Ignore docker files
+docker-compose.yml
+Dockerfile.dev
+.dockerignore
+
+# Ignore fly.io files during build
+fly.toml
+
+# Ignore development scripts
+bin/dev
+bin/docker-*
+Procfile.dev
+

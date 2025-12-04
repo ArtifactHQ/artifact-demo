@@ -129,3 +129,7 @@ tags.temp
 # Ignore secret keys
 /config/credentials/*.key
 
+# Ignore fly.io local state
+.fly/
+fly.toml.bak
+

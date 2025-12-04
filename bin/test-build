@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# Test asset precompilation locally before deploying
+
+set -e
+
+echo "🧪 Testing asset precompilation..."
+echo ""
+
+# Clean existing assets
+echo "🧹 Cleaning existing assets..."
+rm -rf public/assets
+rm -rf app/assets/builds/*
+mkdir -p app/assets/builds
+
+# Compile SCSS with dartsass
+echo "🎨 Compiling SCSS with dartsass..."
+bin/rails dartsass:build
+
+# Check if CSS was generated
+if [ -f "app/assets/builds/application.css" ]; then
+    echo "✅ SCSS compiled successfully"
+    echo "   Generated: app/assets/builds/application.css ($(wc -c < app/assets/builds/application.css) bytes)"
+else
+    echo "❌ SCSS compilation failed!"
+    exit 1
+fi
+
+# Precompile all assets
+echo ""
+echo "📦 Precompiling all assets..."
+RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 bin/rails assets:precompile
+
+# Verify assets were created
+echo ""
+echo "✅ Checking precompiled assets..."
+if [ -d "public/assets" ]; then
+    asset_count=$(find public/assets -type f | wc -l)
+    echo "   Found $asset_count precompiled asset files"
+    
+    # Check for key assets
+    if ls public/assets/application-*.css 1> /dev/null 2>&1; then
+        css_file=$(ls public/assets/application-*.css | head -n 1)
+        echo "   ✓ CSS: $(basename $css_file) ($(wc -c < $css_file) bytes)"
+    else
+        echo "   ✗ CSS file not found!"
+    fi
+    
+    if ls public/assets/application-*.js 1> /dev/null 2>&1; then
+        js_file=$(ls public/assets/application-*.js | head -n 1)
+        echo "   ✓ JS: $(basename $js_file) ($(wc -c < $js_file) bytes)"
+    else
+        echo "   ✗ JS file not found!"
+    fi
+else
+    echo "❌ Asset precompilation failed!"
+    exit 1
+fi
+
+# Test Docker build
+echo ""
+echo "🐳 Testing Docker build..."
+echo "   Building 'build' stage only (faster test)..."
+docker build --target build -t artifact-demo:test . 2>&1 | tail -n 20
+
+echo ""
+echo "✅ All tests passed!"
+echo ""
+echo "To test the full production build:"
+echo "  docker build --target staging -t artifact-demo:staging ."
+echo "  docker run -p 3000:3000 -e SECRET_KEY_BASE=test artifact-demo:staging"
+

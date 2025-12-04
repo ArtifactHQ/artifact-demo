@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Fly.io deployment script for artifact-demo
+
+set -e
+
+echo "🚀 Deploying artifact-demo to Fly.io..."
+echo ""
+
+# Check if flyctl is installed
+if ! command -v flyctl &> /dev/null; then
+    echo "❌ flyctl is not installed."
+    echo "Install it with: curl -L https://fly.io/install.sh | sh"
+    exit 1
+fi
+
+# Check if we're logged in
+if ! flyctl auth whoami &> /dev/null; then
+    echo "❌ You're not logged in to Fly.io"
+    echo "Run: flyctl auth login"
+    exit 1
+fi
+
+# Check if app exists
+if ! flyctl apps list | grep -q "artifact-demo"; then
+    echo "📝 App 'artifact-demo' doesn't exist yet. Creating it..."
+    echo ""
+    echo "After running this, you'll need to:"
+    echo "  1. Create the app: flyctl launch --no-deploy"
+    echo "  2. Create the volume: flyctl volumes create artifact_demo_data --region sjc --size 1"
+    echo "  3. Set secrets: flyctl secrets set SECRET_KEY_BASE=\$(rails secret)"
+    echo "  4. Deploy: flyctl deploy"
+    echo ""
+    exit 0
+fi
+
+# Deploy
+echo "🚢 Deploying to Fly.io..."
+flyctl deploy
+
+echo ""
+echo "✅ Deployment complete!"
+echo ""
+echo "View your app: flyctl apps open"
+echo "View logs: flyctl logs"
+echo "SSH to app: flyctl ssh console"
+echo "Rails console: flyctl ssh console -C 'bin/rails console'"
+
