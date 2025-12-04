@@ -14,5 +14,8 @@
 // 4. Import custom styles LAST (extends Bootstrap)
 @import "theme/custom";
 
-// 5. Add any additional page-specific styles below
+// 5. Import components
+@import "components/product-mockup";
+
+// 6. Add any additional page-specific styles below
 // ...

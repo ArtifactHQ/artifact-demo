@@ -107,3 +107,84 @@ $navbar-padding-y: 1rem !default;
 //   xxl: 1320px
 // ) !default;
 
+// ============================================================================
+// Product Mockup Variables
+// ============================================================================
+// Additional variables for the product mockup component
+
+// Colors (Product Mockup Specific)
+$text-primary: #1C1917 !default;
+$text-secondary: #44403C !default;
+$text-tertiary: #78716C !default;
+$text-quaternary: #A8A29E !default;
+$text-white: #FFFFFF !default;
+
+$background: #FFFFFF !default;
+$background-card: #FAFAF9 !default;
+
+$stone-50: #FAFAF9 !default;
+$stone-100: #F5F5F4 !default;
+$stone-200: #E7E5E4 !default;
+$stone-900: #1C1917 !default;
+
+// Spacing
+$spacer-xs: 0.25rem !default;
+$spacer-sm: 0.5rem !default;
+$spacer-md: 0.75rem !default;
+$spacer-lg: 1rem !default;
+$spacer-xl: 1.5rem !default;
+$spacer-2xl: 2rem !default;
+$spacer-3xl: 3rem !default;
+$spacer-4xl: 4rem !default;
+$spacer-6xl: 6rem !default;
+
+// Typography
+$font-size-xs: 0.75rem !default;
+$font-size-sm: 0.875rem !default;
+$font-size-base: 1rem !default;
+$font-size-lg: 1.125rem !default;
+$font-size-xl: 1.25rem !default;
+$font-size-2xl: 1.5rem !default;
+$font-size-3xl: 1.875rem !default;
+$font-size-2xs: 0.625rem !default;
+
+$font-weight-medium: 500 !default;
+$font-weight-semibold: 600 !default;
+$font-weight-bold: 700 !default;
+
+$font-family-serif: Georgia, serif !default;
+
+// Border Radius (additional sizes)
+$border-radius-xs: 0.125rem !default;
+$border-radius-sm: 0.25rem !default;
+$border-radius: 0.375rem !default;
+$border-radius-md: 0.5rem !default;
+$border-radius-lg: 0.75rem !default;
+$border-radius-xl: 1rem !default;
+$border-radius-2xl: 1.5rem !default;
+$border-radius-full: 9999px !default;
+
+// Shadows
+$shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !default;
+$shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1) !default;
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !default;
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !default;
+$shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !default;
+
+// Opacity
+$opacity-5: 0.05 !default;
+$opacity-10: 0.1 !default;
+$opacity-30: 0.3 !default;
+$opacity-60: 0.6 !default;
+
+// Transitions
+$transition-all: all 0.2s ease !default;
+$transition-fast: all 0.15s ease !default;
+$transition-base: all 0.3s ease !default;
+$transition-background: background 0.2s ease !default;
+$transition-transform: transform 0.2s ease !default;
+$transition-border: border-color 0.2s ease !default;
+$transition-color: color 0.2s ease !default;
+$transition-ease: cubic-bezier(0.4, 0, 0.2, 1) !default;
+$transition-ease-in-out: cubic-bezier(0.4, 0, 0.6, 1) !default;
+

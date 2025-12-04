@@ -1,72 +1,758 @@
 // ==========================================
-// PRODUCT MOCKUP STYLES
+// PRODUCT MOCKUP COMPLETE STYLES
 // ==========================================
-// Scoped styles for product mockup section
-// Inherits from main theme, then overrides with mockup-specific styles
-// Uses Artifact theme colors: Black (#111111), Orange (#D97757), Off-white (#F8F7EF)
+// All-in-one styles for the interactive product mockup
+// Includes: structure, components, utilities, and theme enhancements
 
 // ============================================================================
-// Product Mockup Container
+// MIXINS & UTILITIES
+// ============================================================================
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin circle($size) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+}
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin monospace {
+  font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', monospace;
+}
+
+@mixin pulse-animation {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@mixin mobile-only {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+// ============================================================================
+// ADDITIONAL UTILITY CLASSES
 // ============================================================================
 .product-mockup {
-  // Inherits body styles from main theme, but can override here
-  
-  // ============================================================================
-  // Mockup-specific Typography
-  // ============================================================================
+  .max-w-42 {
+    max-width: 42rem;
+  }
+
+  .leading-relaxed {
+    line-height: 1.625;
+  }
+
+  .underline-accent {
+    text-decoration: underline;
+    text-decoration-color: $primary;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  .content-heading {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: $spacer-md;
+    margin-top: $spacer-xl;
+  }
+
+  .breadcrumb-highlight {
+    color: $text-primary;
+    font-weight: $font-weight-semibold;
+  }
+
+  .section-header-text {
+    font-size: $font-size-2xs;
+    font-weight: $font-weight-bold;
+    color: $text-tertiary;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: $spacer-sm;
+    padding-left: $spacer-sm;
+  }
+
+  .company-icon {
+    @include square(1.5rem);
+    @include flex-center;
+    background: $text-primary;
+    color: $text-white;
+    border-radius: $border-radius-sm;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-xs;
+  }
+
+  .pl-6 {
+    padding-left: 1.5rem !important;
+  }
+
+  .pl-7 {
+    padding-left: 1.75rem !important;
+  }
+
+  .text-stone-400 {
+    color: #A8A29E;
+  }
+
+  .text-stone-500 {
+    color: #78716C;
+  }
+
+  .text-stone-700 {
+    color: #44403C;
+  }
+
+  .text-stone-800 {
+    color: #292524;
+  }
+
+  .text-13 {
+    font-size: 0.8125rem;
+  }
+
+  .gap-2 {
+    gap: 0.5rem !important;
+  }
+
+  .gap-3 {
+    gap: 0.75rem !important;
+  }
+
+  .tab-spacer {
+    flex: 1;
+  }
+}
+
+// ==========================================
+// PRODUCT MOCKUP STRUCTURE
+// ==========================================
+.product-mockup {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  background: $background-card;
+  box-shadow: none;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .browser-chrome {
+    background: $background;
+    border-bottom: 1px solid $border-color;
+    padding: $spacer-md;
+    @include flex-between;
+    flex-shrink: 0;
+
+    .dots {
+      display: flex;
+      gap: $spacer-sm;
+
+      .dot {
+        @include circle($spacer-md);
+        background: #D4D4D8;
+      }
+    }
+
+    .tabs {
+      display: flex;
+      background: $stone-100;
+      border-radius: $border-radius-full;
+      padding: calc($spacer-xs / 2) $spacer-xs;
+
+      .tab {
+        padding: $spacer-xs $spacer-lg;
+        border-radius: $border-radius-full;
+        font-size: $font-size-2xs;
+        font-weight: $font-weight-medium;
+        color: $text-tertiary;
+        cursor: pointer;
+        transition: $transition-all;
+
+        &.active {
+          background: $background-card;
+          color: $text-primary;
+          box-shadow: $shadow-xs;
+        }
+
+        &:hover:not(.active) {
+          color: $text-primary;
+        }
+      }
+    }
+  }
+
+  .app-interface {
+    display: flex;
+    flex: 1;
+    text-align: left;
+    overflow: hidden;
+
+    .sidebar {
+      width: 16rem;
+      border-right: 1px solid $stone-100;
+      background: $stone-50;
+      padding: $spacer-lg;
+      overflow-y: auto;
+      flex-shrink: 0;
+
+      @include mobile-only {
+        display: none;
+      }
+
+      .sidebar-company-header {
+        font-weight: $font-weight-semibold;
+        color: $text-primary;
+      }
+
+      .sidebar-item {
+        padding: $spacer-xs $spacer-sm;
+        font-size: $font-size-2xs;
+        font-weight: $font-weight-medium;
+        color: $text-secondary;
+        border-radius: $border-radius-sm;
+        cursor: pointer;
+        transition: $transition-background;
+
+        &:hover {
+          background: $stone-200;
+        }
+
+        &.active {
+          background: $stone-200;
+          color: $text-primary;
+        }
+      }
+    }
+
+    .main-editor {
+      flex: 1;
+      overflow: hidden;
+      background: $background-card;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+
+      .view-container {
+        display: none;
+        padding: $spacer-4xl;
+        height: 100%;
+        overflow-y: auto;
+
+        @include mobile-only {
+          padding: $spacer-2xl $spacer-lg;
+        }
+
+        &.active {
+          display: block;
+        }
+      }
+
+      .breadcrumb-text {
+        font-size: $font-size-2xs;
+        color: $text-quaternary;
+        margin-bottom: $spacer-lg;
+      }
+
+      .editor-title {
+        font-size: $font-size-3xl;
+        font-weight: $font-weight-bold;
+        font-family: $font-family-serif;
+        color: $text-primary;
+        margin-bottom: $spacer-xl;
+      }
+
+      .ai-summary {
+        padding: $spacer-md;
+        background: $stone-50;
+        border: 1px solid $stone-100;
+        border-radius: $border-radius;
+        color: $text-tertiary;
+        font-size: $font-size-sm;
+        font-style: italic;
+        margin-bottom: $spacer-xl;
+      }
+
+      .checkbox {
+        @include square($spacer-lg);
+        margin-top: $spacer-xs;
+        border: 1px solid #D4D4D8;
+        border-radius: $border-radius-sm;
+        flex-shrink: 0;
+        cursor: pointer;
+        transition: $transition-all;
+
+        &:hover {
+          border-color: $secondary;
+          transform: scale(1.1);
+        }
+
+        &.checked {
+          background: $secondary;
+          border-color: $secondary;
+          @include flex-center;
+          color: $text-white;
+          font-size: $font-size-xs;
+        }
+      }
+
+      .animated-cursor {
+        position: absolute;
+        top: 40%;
+        left: 40%;
+        pointer-events: none;
+        @include pulse-animation;
+
+        svg {
+          width: $spacer-xl;
+          height: $spacer-xl;
+          filter: drop-shadow(0 4px 3px rgba(0, 0, 0, $opacity-30));
+        }
+
+        .cursor-tooltip {
+          position: absolute;
+          left: $spacer-lg;
+          top: $spacer-lg;
+          background: $secondary;
+          color: $text-white;
+          font-size: $font-size-xs;
+          padding: calc($spacer-xs / 2) $spacer-sm;
+          border-radius: $border-radius-full;
+          white-space: nowrap;
+          animation: fadeInOut 3s $transition-ease-in-out infinite;
+        }
+      }
+    }
+
+    .right-sidebar {
+      width: 18rem;
+      border-left: 1px solid $stone-100;
+      background: $stone-50;
+      padding: $spacer-lg;
+      overflow-y: auto;
+      flex-shrink: 0;
+
+      @media (max-width: 991px) {
+        display: none;
+      }
+
+      .tab-bar {
+        background: $stone-100;
+      }
+
+      .tab-bar-item {
+        padding: $spacer-xs;
+        font-size: $font-size-2xs;
+        font-weight: $font-weight-medium;
+        cursor: pointer;
+        border-radius: $border-radius-sm;
+        transition: $transition-all;
+
+        &.tab-bar-item-active {
+          background: $background-card;
+          color: $text-primary;
+          box-shadow: $shadow-xs;
+        }
+
+        &.tab-bar-item-inactive {
+          color: $text-tertiary;
+
+          &:hover {
+            color: $text-primary;
+          }
+        }
+      }
+
+      .template-card {
+        background: $background-card;
+        padding: $spacer-md;
+        border-radius: $border-radius;
+        border: 1px solid $border-color;
+        box-shadow: $shadow-xs;
+        margin-bottom: $spacer-md;
+
+        &:last-child {
+          opacity: $opacity-60;
+        }
+
+        .card-title {
+          font-size: $font-size-2xs;
+          font-weight: $font-weight-bold;
+          color: $text-primary;
+          margin-bottom: $spacer-xs;
+        }
+
+        .card-desc {
+          font-size: $font-size-xs;
+          color: $text-tertiary;
+        }
+      }
+    }
+  }
+}
+
+// ============================================================================
+// DESIGN VIEW STYLES
+// ============================================================================
+.product-mockup {
+  .design-header-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin: 0;
+  }
+
+  .btn-publish {
+    padding: $spacer-sm $spacer-lg;
+    font-size: $font-size-sm;
+  }
+
+  .template-heading {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacer-lg;
+  }
+
+  .template-selector {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: $border-radius;
+    overflow: hidden;
+    transition: $transition-all;
+
+    &:hover {
+      border-color: $border-color;
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+    }
+
+    &.active {
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+
+    .template-preview {
+      height: 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gradient-minimalist {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .gradient-bold {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .gradient-corporate {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+
+    .gradient-organic {
+      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    }
+
+    .template-decoration-circle {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      top: 20px;
+      left: 20px;
+    }
+
+    .template-decoration-shape {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      bottom: 15px;
+      right: 15px;
+      border-radius: $border-radius-sm;
+    }
+
+    .template-decoration-line {
+      position: absolute;
+      width: 60%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.3);
+      bottom: 30px;
+      left: 20px;
+    }
+
+    .template-decoration-organic {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      svg {
+        width: 50px;
+        height: 50px;
+        opacity: 0.3;
+      }
+    }
+
+    .template-info {
+      padding: $spacer-md;
+      background: $background-card;
+
+      .template-name {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semibold;
+        color: $text-primary;
+        margin-bottom: 4px;
+      }
+
+      .template-desc {
+        font-size: $font-size-2xs;
+        color: $text-tertiary;
+      }
+    }
+  }
+
+  .theme-section {
+    .theme-section-header {
+      @include flex-between;
+      cursor: pointer;
+      padding: $spacer-md;
+      background: $stone-50;
+      border-radius: $border-radius;
+      transition: $transition-background;
+
+      &:hover {
+        background: $stone-100;
+      }
+
+      &.collapsed {
+        .chevron {
+          transform: rotate(-90deg);
+        }
+      }
+
+      .theme-section-title {
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $text-primary;
+        margin: 0;
+      }
+
+      .chevron {
+        transition: transform 0.2s ease;
+        color: $text-tertiary;
+      }
+    }
+
+    .theme-section-content {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: all 0.3s ease;
+      padding: 0 $spacer-md;
+
+      &.active {
+        max-height: 1000px;
+        opacity: 1;
+        padding: $spacer-lg $spacer-md;
+      }
+    }
+
+    .theme-section-desc {
+      font-size: $font-size-sm;
+      color: $text-tertiary;
+      margin-bottom: $spacer-lg;
+    }
+  }
+
+  .color-palette-heading {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $text-secondary;
+    margin-bottom: $spacer-md;
+  }
+
+  .color-swatch-container {
+    .color-swatch {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: $border-radius;
+      cursor: pointer;
+      transition: $transition-transform;
+      border: 2px solid transparent;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      &.active {
+        border-color: $text-primary;
+        box-shadow: 0 0 0 3px rgba($text-primary, 0.1);
+      }
+    }
+
+    .color-label {
+      font-size: $font-size-2xs;
+      color: $text-secondary;
+      margin-top: $spacer-sm;
+      @include monospace;
+    }
+
+    .color-value {
+      font-size: $font-size-2xs;
+      color: $text-tertiary;
+      @include monospace;
+    }
+  }
+}
+
+// ============================================================================
+// PREVIEW VIEW STYLES
+// ============================================================================
+.product-mockup {
+  .preview-container {
+    @include flex-center;
+    height: 100%;
+    padding: $spacer-2xl;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .preview-content {
+    @include flex-center;
+  }
+
+  .preview-phone {
+    width: 280px;
+    background: $background-card;
+    border-radius: $border-radius-xl;
+    box-shadow: $shadow-2xl;
+    overflow: hidden;
+
+    .preview-phone-header {
+      padding: $spacer-lg;
+      background: $background;
+      border-bottom: 1px solid $border-color;
+
+      .preview-app-title {
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
+        color: $text-primary;
+        margin-bottom: 4px;
+      }
+
+      .preview-app-subtitle {
+        font-size: $font-size-2xs;
+        color: $text-tertiary;
+      }
+    }
+
+    .preview-phone-content {
+      padding: $spacer-lg;
+      background: $background-card;
+      max-height: 400px;
+      overflow-y: auto;
+
+      .task-section-label {
+        font-size: $font-size-2xs;
+        font-weight: $font-weight-bold;
+        color: $text-tertiary;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: $spacer-sm;
+        margin-top: $spacer-md;
+
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+
+      .task-checkbox-size {
+        width: 16px;
+        height: 16px;
+        margin-top: 2px;
+      }
+
+      .task-item-wrapper {
+        padding: $spacer-sm;
+        border-radius: $border-radius-sm;
+        transition: $transition-background;
+
+        &:hover {
+          background: $stone-50;
+        }
+      }
+
+      .task-item-wrapper-small {
+        padding: $spacer-xs $spacer-sm;
+        border-radius: $border-radius-sm;
+        background: rgba(167, 243, 208, 0.2);
+        transition: $transition-background;
+
+        &:hover {
+          background: rgba(167, 243, 208, 0.3);
+        }
+      }
+
+      .nested-task-wrapper {
+        margin-left: $spacer-lg;
+        margin-bottom: $spacer-md;
+      }
+    }
+  }
+}
+
+// ============================================================================
+// TYPOGRAPHY ENHANCEMENTS
+// ============================================================================
+.product-mockup {
   letter-spacing: -0.015em;
   -webkit-font-smoothing: antialiased;
-  
+
   h1, h2, h3, h4, h5, h6 {
     letter-spacing: -0.03em;
   }
-  
+
   // ============================================================================
-  // Mockup Navigation (if needed within mockup)
+  // Buttons (within product mockup)
   // ============================================================================
-  .mockup-navbar {
-    background-color: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid $border-color;
-    padding: 1rem 1.5rem;
-    border-radius: $border-radius $border-radius 0 0;
-  }
-  
-  .mockup-brand {
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    font-size: 1.5rem;
-    color: $primary; // #111111
-  }
-  
-  .mockup-nav-link {
-    font-weight: 500;
-    color: $secondary; // #6B7280
-    font-size: 0.95rem;
-    transition: color 0.2s ease;
-    
-    &:hover, &.active {
-      color: $primary; // #111111
-    }
-  }
-  
-  // ============================================================================
-  // Mockup Buttons
-  // ============================================================================
-  .mockup-btn {
+  .btn {
     letter-spacing: -0.01em;
-    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-    border-radius: $border-radius;
-    font-weight: 600;
-    padding: 0.625rem 1.25rem;
+    transition: all $transition-fast cubic-bezier(0.2, 0.8, 0.2, 1);
   }
-  
-  .mockup-btn-primary {
-    background-color: $primary; // #111111
+
+  .btn-primary {
+    background-color: $primary;
     border-color: $primary;
-    color: white;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    color: $text-white;
+    box-shadow: $shadow-xs;
     
     &:hover {
       background-color: #000000;
@@ -74,376 +760,67 @@
       transform: translateY(-1px);
     }
   }
-  
-  .mockup-btn-accent {
-    background-color: $accent; // #D97757
-    border-color: $accent;
-    color: white;
-    box-shadow: 0 1px 2px rgba(211, 119, 87, 0.2);
-    
+
+  .btn-outline-secondary {
     &:hover {
-      background-color: darken($accent, 8%);
-      border-color: darken($accent, 8%);
-      transform: translateY(-1px);
-    }
-  }
-  
-  .mockup-btn-outline {
-    background-color: transparent;
-    border: 1px solid $border-color;
-    color: $primary;
-    
-    &:hover {
-      background-color: $light; // #F3F4F6
+      background-color: $stone-50;
       border-color: darken($border-color, 10%);
     }
   }
-  
-  // ============================================================================
-  // Mockup Cards
-  // ============================================================================
-  .mockup-card {
-    background-color: white;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-    transition: all 0.3s ease;
-    
-    &:hover {
-      border-color: darken($border-color, 10%);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-      transform: translateY(-2px);
-    }
-  }
-  
-  .mockup-card-header {
-    padding: 1.25rem 1.5rem;
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: $secondary; // #6B7280
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid $border-color;
-  }
-  
-  .mockup-card-body {
-    padding: 1.5rem;
-  }
-  
-  // ============================================================================
-  // Mockup Status Indicators
-  // ============================================================================
-  .mockup-status-dot {
-    height: 8px;
-    width: 8px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 6px;
-  }
-  
-  .mockup-status-success { 
-    background-color: $success; // #10B981
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); 
-  }
-  
-  .mockup-status-warning { 
-    background-color: $accent; // #D97757
-    box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.1); 
-  }
-  
-  .mockup-status-neutral { 
-    background-color: $secondary; // #6B7280
-  }
-  
-  // ============================================================================
-  // Mockup Data Lists
-  // ============================================================================
-  .mockup-data-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid $light;
-    font-size: 0.95rem;
-    
-    &:last-child {
-      border-bottom: none;
-    }
-  }
-  
-  .mockup-data-label {
-    color: $secondary; // #6B7280
-    font-weight: 500;
-  }
-  
-  .mockup-data-value {
-    color: $primary; // #111111
-    font-weight: 600;
-    font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', monospace;
-    font-size: 0.9em;
-  }
-  
-  // ============================================================================
-  // Mockup Terminal Component
-  // ============================================================================
-  .mockup-terminal {
-    background-color: #1A1A1A;
-    border: 1px solid #333;
-    border-radius: $border-radius;
-    color: #E5E5E5;
-    font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', monospace;
-    overflow: hidden;
-  }
-  
-  .mockup-terminal-header {
-    background-color: #262626;
-    padding: 0.5rem 1rem;
-    border-bottom: 1px solid #333;
-    display: flex;
-    gap: 6px;
-    align-items: center;
-  }
-  
-  .mockup-terminal-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    
-    &.red { background-color: #EF4444; }
-    &.yellow { background-color: #F59E0B; }
-    &.green { background-color: #10B981; }
-  }
-  
-  .mockup-terminal-body {
-    padding: 1.5rem;
-  }
-  
-  .mockup-code-comment { 
-    color: #6B7280; 
-    margin-bottom: 0.25rem; 
-    display: block; 
-  }
-  
-  .mockup-code-command { 
-    color: #10B981; 
-    margin-bottom: 1.5rem; 
-    display: block; 
-    
-    &::before { 
-      content: "$ "; 
-      color: #6B7280; 
-    }
-    
-    &:last-child { 
-      margin-bottom: 0; 
-    }
-  }
-  
-  // ============================================================================
-  // Mockup Feature List
-  // ============================================================================
-  .mockup-feature-check {
-    color: $success; // #10B981
-    margin-right: 0.5rem;
-  }
-  
-  .mockup-feature-item {
-    display: flex;
-    align-items: start;
-    margin-bottom: 1rem;
-    
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  
-  // ============================================================================
-  // Mockup Container Background
-  // ============================================================================
-  .mockup-container {
-    background-color: $body-bg; // #F8F7EF (off-white)
-    border: 1px solid $border-color;
-    border-radius: $border-radius-lg;
-    padding: 2rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  }
-  
-  .mockup-preview-frame {
-    background-color: white;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
-    overflow: hidden;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  }
-}
 
-// ============================================================================
-// APP PREVIEW STYLES (Design Tab Theme)
-// ============================================================================
-// These styles are scoped to .app-preview and won't affect the product mockup
-// These can be updated independently from the design tab
-.app-preview {
-  // Reset/isolate from parent styles
-  all: initial;
-  * {
-    all: unset;
-  }
-  
-  // Base reset for app preview
-  display: block;
-  box-sizing: border-box;
-  
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-  
-  // Default app preview theme (can be overridden by design tab)
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #1F2937;
-  background-color: #FFFFFF;
-  
-  // Design tab can inject custom styles here via data attributes or inline styles
-  // Example: [data-theme="dark"], [data-accent-color], etc.
-  
   // ============================================================================
-  // App Preview Base Elements (can be customized by design tab)
+  // Tab Scoping Strategy
   // ============================================================================
-  h1, h2, h3, h4, h5, h6 {
-    display: block;
-    font-weight: bold;
-    margin: 0;
-    line-height: 1.2;
+  
+  // DOC TAB: Uses full Artifact UI styles
+  .view-container[data-view="doc"] {
+    // Inherits all Artifact theme enhancements
   }
-  
-  h1 { font-size: 2em; margin-bottom: 0.5em; }
-  h2 { font-size: 1.5em; margin-bottom: 0.5em; }
-  h3 { font-size: 1.25em; margin-bottom: 0.5em; }
-  
-  p {
-    display: block;
-    margin: 0 0 1em 0;
-  }
-  
-  a {
-    color: #111111;
-    text-decoration: underline;
-    cursor: pointer;
+
+  // DESIGN TAB: Uses standard Bootstrap/main site styling
+  .view-container[data-view="design"] {
+    letter-spacing: normal;
+    -webkit-font-smoothing: auto;
     
-    &:hover {
-      color: #D97757;
+    h1, h2, h3, h4, h5, h6 {
+      letter-spacing: normal;
     }
-  }
-  
-  button {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: #111111;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    font-weight: 600;
     
-    &:hover {
-      background-color: #000000;
+    .design-canvas {
+      .btn-primary {
+        background-color: $primary;
+        border-color: $primary;
+        box-shadow: $shadow-xs;
+        transform: none;
+        
+        &:hover {
+          background-color: darken($primary, 5%);
+          border-color: darken($primary, 5%);
+          transform: none;
+        }
+      }
+
+      .btn {
+        letter-spacing: normal;
+        transition: $transition-all;
+      }
     }
   }
-  
-  // ============================================================================
-  // App Preview Utility Classes (design tab can use these)
-  // ============================================================================
-  .app-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-  
-  .app-section {
-    margin-bottom: 2rem;
-  }
-  
-  .app-card {
-    background: white;
-    border: 1px solid #E5E7EB;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .app-button-primary {
-    background-color: #111111;
-    color: white;
-    padding: 0.625rem 1.25rem;
-    border-radius: 0.75rem;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
+
+  // PREVIEW TAB: Dynamic theme styling from design selections
+  .view-container[data-view="preview"] {
+    // Theme colors applied dynamically via JavaScript
+    // See app_preview_controller.js
     
-    &:hover {
-      background-color: #000000;
-    }
-  }
-  
-  .app-button-accent {
-    background-color: #D97757;
-    color: white;
-    padding: 0.625rem 1.25rem;
-    border-radius: 0.75rem;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
+    letter-spacing: normal;
+    -webkit-font-smoothing: auto;
     
-    &:hover {
-      background-color: darken(#D97757, 8%);
+    h1, h2, h3, h4, h5, h6 {
+      letter-spacing: normal;
     }
-  }
-  
-  // ============================================================================
-  // Design Tab Theme Overrides (applied via data attributes or classes)
-  // ============================================================================
-  // Example structure for design tab to inject themes:
-  
-  &[data-theme="custom"] {
-    // Design tab can inject custom CSS variables here
-    // This section is dynamically updated by the design tab
-  }
-  
-  // Color scheme variants that design tab can apply
-  &[data-color-scheme="dark"] {
-    background-color: #1A1A1A;
-    color: #E5E5E5;
     
-    .app-card {
-      background-color: #262626;
-      border-color: #333;
-      color: #E5E5E5;
-    }
-  }
-  
-  &[data-color-scheme="light"] {
-    background-color: #F8F7EF;
-    color: #1F2937;
-  }
-  
-  // Accent color variants
-  &[data-accent="orange"] {
-    .app-button-accent {
-      background-color: #D97757;
-    }
-  }
-  
-  &[data-accent="green"] {
-    .app-button-accent {
-      background-color: #10B981;
-    }
-  }
-  
-  &[data-accent="blue"] {
-    .app-button-accent {
-      background-color: #3B82F6;
+    .btn {
+      letter-spacing: normal;
     }
   }
 }
-
