@@ -23,5 +23,22 @@ module Template
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Allow embedding in iframe from marketing site
+    # In development: Allow all origins for easy local testing
+    # In production: Restrict to artifact.new only
+    if Rails.env.development?
+      config.action_dispatch.default_headers = {
+        'X-Frame-Options' => nil  # Allow all origins in development
+      }
+    else
+      config.action_dispatch.default_headers = {
+        'X-Frame-Options' => nil,
+        'Content-Security-Policy' => "frame-ancestors 'self' https://artifact.new http://artifact.new"
+      }
+    end
+
+    # Disable CSRF for demo purposes (no sensitive data submission)
+    config.action_controller.default_protect_from_forgery = false
   end
 end

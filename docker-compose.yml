@@ -1,7 +1,6 @@
-version: '3.8'
-
 services:
-  web:
+  artifact-demo-web:
+    container_name: demo-web
     build:
       context: .
       target: development
@@ -15,6 +14,8 @@ services:
       - RAILS_LOG_TO_STDOUT=true
     stdin_open: true
     tty: true
+    networks:
+      - artifact-network
 
   # Staging environment - mimics Fly.io production locally
   staging:
@@ -29,8 +30,12 @@ services:
       - RAILS_SERVE_STATIC_FILES=true
       - RAILS_LOG_TO_STDOUT=true
     command: ["./bin/rails", "server", "-b", "0.0.0.0"]
+    networks:
+      - artifact-network
 
 volumes:
   bundle_cache:
 
-
+networks:
+  artifact-network:
+    external: true
