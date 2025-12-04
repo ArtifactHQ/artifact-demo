@@ -1,0 +1,126 @@
+// Custom Styles - Applied AFTER Bootstrap
+// Use this for custom CSS that extends Bootstrap components
+
+// ============================================================================
+// Typography Enhancements
+// ============================================================================
+.display-1,
+.display-2,
+.display-3,
+.display-4,
+.display-5,
+.display-6 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// ============================================================================
+// Card Enhancements
+// ============================================================================
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+}
+
+// ============================================================================
+// Button Enhancements
+// ============================================================================
+.btn {
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// ============================================================================
+// Utility Classes
+// ============================================================================
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hover-lift {
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+// ============================================================================
+// Animations
+// ============================================================================
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease;
+}
+
+// ============================================================================
+// Documentation Sidebar (Bootstrap Cheatsheet Style)
+// ============================================================================
+.sidebar {
+  .nav-link {
+    color: $secondary;
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    
+    &:hover {
+      color: $primary;
+      background-color: rgba(0, 0, 0, 0.03);
+    }
+    
+    &.active {
+      color: $primary;
+      font-weight: 600;
+    }
+  }
+  
+  .sidebar-heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+}
+
+.bd-heading {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+  
+  a {
+    font-size: 0.875rem;
+    color: $secondary;
+    
+    &:hover {
+      color: $primary;
+    }
+  }
+}
+
+// Smooth scrolling for anchor links
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+

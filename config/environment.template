@@ -1,0 +1,22 @@
+# Development Environment Configuration Template
+# Copy values as needed for your environment
+
+# Rails Configuration
+RAILS_ENV=development
+RAILS_MAX_THREADS=5
+WEB_CONCURRENCY=1
+RAILS_LOG_LEVEL=debug
+
+# Database
+DATABASE_URL=sqlite3:storage/development.sqlite3
+
+# Hosts (for Docker and development)
+RAILS_DEVELOPMENT_HOSTS=.localhost,.local,.ngrok.io,.githubpreview.dev
+
+# Session
+SECRET_KEY_BASE=development_secret_key_base_replace_in_production
+
+# AI Coding Session Info (set by docker-start)
+# SESSION_NAME=my-project
+# SESSION_ID=unique-id
+

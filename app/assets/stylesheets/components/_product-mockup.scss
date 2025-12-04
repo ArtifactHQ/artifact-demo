@@ -1,0 +1,449 @@
+// ==========================================
+// PRODUCT MOCKUP STYLES
+// ==========================================
+// Scoped styles for product mockup section
+// Inherits from main theme, then overrides with mockup-specific styles
+// Uses Artifact theme colors: Black (#111111), Orange (#D97757), Off-white (#F8F7EF)
+
+// ============================================================================
+// Product Mockup Container
+// ============================================================================
+.product-mockup {
+  // Inherits body styles from main theme, but can override here
+  
+  // ============================================================================
+  // Mockup-specific Typography
+  // ============================================================================
+  letter-spacing: -0.015em;
+  -webkit-font-smoothing: antialiased;
+  
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.03em;
+  }
+  
+  // ============================================================================
+  // Mockup Navigation (if needed within mockup)
+  // ============================================================================
+  .mockup-navbar {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid $border-color;
+    padding: 1rem 1.5rem;
+    border-radius: $border-radius $border-radius 0 0;
+  }
+  
+  .mockup-brand {
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    font-size: 1.5rem;
+    color: $primary; // #111111
+  }
+  
+  .mockup-nav-link {
+    font-weight: 500;
+    color: $secondary; // #6B7280
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+    
+    &:hover, &.active {
+      color: $primary; // #111111
+    }
+  }
+  
+  // ============================================================================
+  // Mockup Buttons
+  // ============================================================================
+  .mockup-btn {
+    letter-spacing: -0.01em;
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border-radius: $border-radius;
+    font-weight: 600;
+    padding: 0.625rem 1.25rem;
+  }
+  
+  .mockup-btn-primary {
+    background-color: $primary; // #111111
+    border-color: $primary;
+    color: white;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    
+    &:hover {
+      background-color: #000000;
+      border-color: #000000;
+      transform: translateY(-1px);
+    }
+  }
+  
+  .mockup-btn-accent {
+    background-color: $accent; // #D97757
+    border-color: $accent;
+    color: white;
+    box-shadow: 0 1px 2px rgba(211, 119, 87, 0.2);
+    
+    &:hover {
+      background-color: darken($accent, 8%);
+      border-color: darken($accent, 8%);
+      transform: translateY(-1px);
+    }
+  }
+  
+  .mockup-btn-outline {
+    background-color: transparent;
+    border: 1px solid $border-color;
+    color: $primary;
+    
+    &:hover {
+      background-color: $light; // #F3F4F6
+      border-color: darken($border-color, 10%);
+    }
+  }
+  
+  // ============================================================================
+  // Mockup Cards
+  // ============================================================================
+  .mockup-card {
+    background-color: white;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      border-color: darken($border-color, 10%);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+      transform: translateY(-2px);
+    }
+  }
+  
+  .mockup-card-header {
+    padding: 1.25rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: $secondary; // #6B7280
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid $border-color;
+  }
+  
+  .mockup-card-body {
+    padding: 1.5rem;
+  }
+  
+  // ============================================================================
+  // Mockup Status Indicators
+  // ============================================================================
+  .mockup-status-dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+  }
+  
+  .mockup-status-success { 
+    background-color: $success; // #10B981
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); 
+  }
+  
+  .mockup-status-warning { 
+    background-color: $accent; // #D97757
+    box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.1); 
+  }
+  
+  .mockup-status-neutral { 
+    background-color: $secondary; // #6B7280
+  }
+  
+  // ============================================================================
+  // Mockup Data Lists
+  // ============================================================================
+  .mockup-data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid $light;
+    font-size: 0.95rem;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  
+  .mockup-data-label {
+    color: $secondary; // #6B7280
+    font-weight: 500;
+  }
+  
+  .mockup-data-value {
+    color: $primary; // #111111
+    font-weight: 600;
+    font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', monospace;
+    font-size: 0.9em;
+  }
+  
+  // ============================================================================
+  // Mockup Terminal Component
+  // ============================================================================
+  .mockup-terminal {
+    background-color: #1A1A1A;
+    border: 1px solid #333;
+    border-radius: $border-radius;
+    color: #E5E5E5;
+    font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', monospace;
+    overflow: hidden;
+  }
+  
+  .mockup-terminal-header {
+    background-color: #262626;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #333;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  
+  .mockup-terminal-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    
+    &.red { background-color: #EF4444; }
+    &.yellow { background-color: #F59E0B; }
+    &.green { background-color: #10B981; }
+  }
+  
+  .mockup-terminal-body {
+    padding: 1.5rem;
+  }
+  
+  .mockup-code-comment { 
+    color: #6B7280; 
+    margin-bottom: 0.25rem; 
+    display: block; 
+  }
+  
+  .mockup-code-command { 
+    color: #10B981; 
+    margin-bottom: 1.5rem; 
+    display: block; 
+    
+    &::before { 
+      content: "$ "; 
+      color: #6B7280; 
+    }
+    
+    &:last-child { 
+      margin-bottom: 0; 
+    }
+  }
+  
+  // ============================================================================
+  // Mockup Feature List
+  // ============================================================================
+  .mockup-feature-check {
+    color: $success; // #10B981
+    margin-right: 0.5rem;
+  }
+  
+  .mockup-feature-item {
+    display: flex;
+    align-items: start;
+    margin-bottom: 1rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  // ============================================================================
+  // Mockup Container Background
+  // ============================================================================
+  .mockup-container {
+    background-color: $body-bg; // #F8F7EF (off-white)
+    border: 1px solid $border-color;
+    border-radius: $border-radius-lg;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+  
+  .mockup-preview-frame {
+    background-color: white;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// ============================================================================
+// APP PREVIEW STYLES (Design Tab Theme)
+// ============================================================================
+// These styles are scoped to .app-preview and won't affect the product mockup
+// These can be updated independently from the design tab
+.app-preview {
+  // Reset/isolate from parent styles
+  all: initial;
+  * {
+    all: unset;
+  }
+  
+  // Base reset for app preview
+  display: block;
+  box-sizing: border-box;
+  
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  // Default app preview theme (can be overridden by design tab)
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #1F2937;
+  background-color: #FFFFFF;
+  
+  // Design tab can inject custom styles here via data attributes or inline styles
+  // Example: [data-theme="dark"], [data-accent-color], etc.
+  
+  // ============================================================================
+  // App Preview Base Elements (can be customized by design tab)
+  // ============================================================================
+  h1, h2, h3, h4, h5, h6 {
+    display: block;
+    font-weight: bold;
+    margin: 0;
+    line-height: 1.2;
+  }
+  
+  h1 { font-size: 2em; margin-bottom: 0.5em; }
+  h2 { font-size: 1.5em; margin-bottom: 0.5em; }
+  h3 { font-size: 1.25em; margin-bottom: 0.5em; }
+  
+  p {
+    display: block;
+    margin: 0 0 1em 0;
+  }
+  
+  a {
+    color: #111111;
+    text-decoration: underline;
+    cursor: pointer;
+    
+    &:hover {
+      color: #D97757;
+    }
+  }
+  
+  button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #111111;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    
+    &:hover {
+      background-color: #000000;
+    }
+  }
+  
+  // ============================================================================
+  // App Preview Utility Classes (design tab can use these)
+  // ============================================================================
+  .app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .app-section {
+    margin-bottom: 2rem;
+  }
+  
+  .app-card {
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .app-button-primary {
+    background-color: #111111;
+    color: white;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: #000000;
+    }
+  }
+  
+  .app-button-accent {
+    background-color: #D97757;
+    color: white;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: darken(#D97757, 8%);
+    }
+  }
+  
+  // ============================================================================
+  // Design Tab Theme Overrides (applied via data attributes or classes)
+  // ============================================================================
+  // Example structure for design tab to inject themes:
+  
+  &[data-theme="custom"] {
+    // Design tab can inject custom CSS variables here
+    // This section is dynamically updated by the design tab
+  }
+  
+  // Color scheme variants that design tab can apply
+  &[data-color-scheme="dark"] {
+    background-color: #1A1A1A;
+    color: #E5E5E5;
+    
+    .app-card {
+      background-color: #262626;
+      border-color: #333;
+      color: #E5E5E5;
+    }
+  }
+  
+  &[data-color-scheme="light"] {
+    background-color: #F8F7EF;
+    color: #1F2937;
+  }
+  
+  // Accent color variants
+  &[data-accent="orange"] {
+    .app-button-accent {
+      background-color: #D97757;
+    }
+  }
+  
+  &[data-accent="green"] {
+    .app-button-accent {
+      background-color: #10B981;
+    }
+  }
+  
+  &[data-accent="blue"] {
+    .app-button-accent {
+      background-color: #3B82F6;
+    }
+  }
+}
+

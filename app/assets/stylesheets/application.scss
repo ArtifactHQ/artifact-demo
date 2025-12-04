@@ -1,0 +1,18 @@
+// ============================================================================
+// Artifact Rails Template - Main Stylesheet
+// ============================================================================
+
+// 1. Import custom variables FIRST (overrides Bootstrap defaults)
+@import "theme/variables";
+
+// 2. Import Bootstrap (uses our variables)
+@import "bootstrap";
+
+// 3. Import the Artifact theme (reusable design system)
+@import "theme/artifact";
+
+// 4. Import custom styles LAST (extends Bootstrap)
+@import "theme/custom";
+
+// 5. Add any additional page-specific styles below
+// ...

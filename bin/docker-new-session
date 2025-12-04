@@ -1,0 +1,80 @@
+#!/bin/bash
+# Create a new AI coding session from the template
+# Usage: ./bin/docker-new-session <project-name> [port]
+
+set -e
+
+if [ -z "$1" ]; then
+  echo "❌ Error: Project name required"
+  echo "Usage: $0 <project-name> [port]"
+  echo "Example: $0 my-new-app 3001"
+  exit 1
+fi
+
+PROJECT_NAME="$1"
+PORT="${2:-3000}"
+CONTAINER_NAME="rails-ai-${PROJECT_NAME}"
+SESSION_DIR="./ai-sessions/${PROJECT_NAME}"
+IMAGE_NAME="nedry-rails8-template-dev:latest"
+
+echo "🤖 Creating new AI coding session..."
+echo "📝 Project: $PROJECT_NAME"
+echo "📦 Container: $CONTAINER_NAME"
+echo "📁 Workspace: $SESSION_DIR"
+echo "🌐 Port: $PORT"
+echo ""
+
+# Create session directory
+mkdir -p "$SESSION_DIR"
+
+# Check if container already exists
+if docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+  echo "⚠️  Container '$CONTAINER_NAME' already exists. Please choose a different name."
+  exit 1
+fi
+
+# Run new container with mounted workspace
+docker run -d \
+  --name "$CONTAINER_NAME" \
+  -p "$PORT:3000" \
+  -v "$(pwd)/$SESSION_DIR:/workspace" \
+  -w /rails \
+  -e RAILS_ENV=development \
+  -e PROJECT_NAME="$PROJECT_NAME" \
+  "$IMAGE_NAME"
+
+# Wait for container to be ready
+echo "⏳ Waiting for container to be ready..."
+sleep 3
+
+# Copy template to workspace
+echo "📋 Setting up workspace..."
+docker exec "$CONTAINER_NAME" bash -c "
+  cp -r /rails/* /workspace/ 2>/dev/null || true
+  cp -r /rails/.* /workspace/ 2>/dev/null || true
+  cd /workspace
+  # Update application name in config
+  if [ -f config/application.rb ]; then
+    sed -i 's/module Template/module ${PROJECT_NAME^}/' config/application.rb
+  fi
+  echo '✅ Workspace initialized'
+"
+
+echo ""
+echo "✅ AI coding session ready!"
+echo ""
+echo "🌐 Rails app: http://localhost:$PORT"
+echo "📊 Health check: http://localhost:$PORT/up"
+echo "📁 Local workspace: $SESSION_DIR"
+echo ""
+echo "🤖 For Claude Agents SDK:"
+echo "   - Container: $CONTAINER_NAME"
+echo "   - Workspace: /workspace (mounted from $SESSION_DIR)"
+echo "   - Shell: docker exec -it $CONTAINER_NAME bash"
+echo ""
+echo "Useful commands:"
+echo "  View logs:     docker logs -f $CONTAINER_NAME"
+echo "  Shell access:  docker exec -it $CONTAINER_NAME bash"
+echo "  Rails console: docker exec -it $CONTAINER_NAME bin/rails console"
+echo "  Stop:          docker stop $CONTAINER_NAME"
+echo "  Cleanup:       docker rm -f $CONTAINER_NAME && rm -rf $SESSION_DIR"

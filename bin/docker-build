@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Build the base development image for AI coding sessions
+
+set -e
+
+echo "🔨 Building Rails 8 Template Development Image..."
+echo ""
+
+cd "$(dirname "$0")/.."
+
+# Build with build cache for faster rebuilds
+docker build \
+  -f Dockerfile.dev \
+  -t rails8-template-dev:latest \
+  -t "rails8-template-dev:$(date +%Y%m%d-%H%M%S)" \
+  --build-arg BUILDKIT_INLINE_CACHE=1 \
+  .
+
+echo ""
+echo "✅ Image built successfully!"
+echo ""
+echo "📊 Image details:"
+docker images rails8-template-dev:latest
+
+echo ""
+echo "🚀 Next steps:"
+echo "  • Test: ./bin/docker-test"
+echo "  • Start: ./bin/docker-start [session-name]"
+echo "  • Or use: docker-compose up"

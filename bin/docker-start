@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+# Start a new AI coding session from the base template
+# Usage: ./bin/docker-start [session-name] [port]
+
+set -e
+
+# Configuration
+SESSION_NAME="${1:-session-$(date +%s)}"
+PORT="${2:-3000}"
+CONTAINER_NAME="rails-ai-${SESSION_NAME}"
+SESSIONS_DIR="$(dirname "$0")/../sessions"
+
+echo "🤖 Starting AI Coding Session: $SESSION_NAME"
+echo ""
+
+# Create sessions directory if it doesn't exist
+mkdir -p "$SESSIONS_DIR/$SESSION_NAME"
+
+# Check if container already exists
+if docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+  echo "⚠️  Container $CONTAINER_NAME already exists"
+  echo ""
+  read -p "Do you want to (r)estart, (s)top, or (c)ancel? " -n 1 -r
+  echo ""
+  
+  if [[ $REPLY =~ ^[Rr]$ ]]; then
+    docker stop "$CONTAINER_NAME" 2>/dev/null || true
+    docker rm "$CONTAINER_NAME" 2>/dev/null || true
+  elif [[ $REPLY =~ ^[Ss]$ ]]; then
+    docker stop "$CONTAINER_NAME"
+    exit 0
+  else
+    exit 0
+  fi
+fi
+
+# Start container with volume mounted
+echo "🚀 Starting container..."
+docker run -d \
+  --name "$CONTAINER_NAME" \
+  -p "$PORT:3000" \
+  -v "$SESSIONS_DIR/$SESSION_NAME:/workspace" \
+  -e RAILS_ENV=development \
+  -e SESSION_NAME="$SESSION_NAME" \
+  rails8-template-dev:latest
+
+# Wait for Rails to be ready
+echo "⏳ Waiting for Rails to start..."
+for i in {1..30}; do
+  if docker exec "$CONTAINER_NAME" curl -sf http://localhost:3000/up > /dev/null 2>&1; then
+    break
+  fi
+  if [ $i -eq 30 ]; then
+    echo "❌ Rails failed to start"
+    docker logs "$CONTAINER_NAME" --tail 50
+    exit 1
+  fi
+  sleep 1
+done
+
+echo ""
+echo "✅ Session ready!"
+echo ""
+echo "📍 Session: $SESSION_NAME"
+echo "🌐 URL: http://localhost:$PORT"
+echo "📁 Workspace: $SESSIONS_DIR/$SESSION_NAME"
+echo ""
+echo "🔧 Useful commands:"
+echo "  • Shell:    docker exec -it $CONTAINER_NAME bash"
+echo "  • Console:  docker exec -it $CONTAINER_NAME bin/rails console"
+echo "  • Logs:     docker logs -f $CONTAINER_NAME"
+echo "  • Stop:     docker stop $CONTAINER_NAME"
+echo "  • Remove:   docker rm $CONTAINER_NAME"
+echo ""
+echo "💡 Or use: ./bin/docker-shell $SESSION_NAME"

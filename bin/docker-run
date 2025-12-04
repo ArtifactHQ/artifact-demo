@@ -1,0 +1,50 @@
+#!/bin/bash
+# Quick start a development container
+# Usage: ./bin/docker-run [container-name] [port]
+
+set -e
+
+CONTAINER_NAME="${1:-rails-dev}"
+PORT="${2:-3000}"
+IMAGE_NAME="nedry-rails8-template-dev:latest"
+
+echo "🚀 Starting Rails development container..."
+echo "📦 Container: $CONTAINER_NAME"
+echo "🌐 Port: $PORT"
+echo ""
+
+# Check if container already exists
+if docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+  echo "⚠️  Container '$CONTAINER_NAME' already exists"
+  read -p "Do you want to remove it and create a new one? (y/N): " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    docker stop "$CONTAINER_NAME" 2>/dev/null || true
+    docker rm "$CONTAINER_NAME"
+  else
+    echo "Starting existing container..."
+    docker start "$CONTAINER_NAME"
+    exit 0
+  fi
+fi
+
+# Run new container
+docker run -d \
+  --name "$CONTAINER_NAME" \
+  -p "$PORT:3000" \
+  -v "$(pwd):/rails" \
+  -e RAILS_ENV=development \
+  "$IMAGE_NAME"
+
+echo ""
+echo "✅ Container started!"
+echo "🌐 Rails app: http://localhost:$PORT"
+echo "📊 Health check: http://localhost:$PORT/up"
+echo ""
+echo "Useful commands:"
+echo "  View logs:    docker logs -f $CONTAINER_NAME"
+echo "  Shell access: docker exec -it $CONTAINER_NAME bash"
+echo "  Rails console: docker exec -it $CONTAINER_NAME bin/rails console"
+echo "  Stop:         docker stop $CONTAINER_NAME"
+echo "  Remove:       docker rm $CONTAINER_NAME"
+

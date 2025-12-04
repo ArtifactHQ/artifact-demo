@@ -1,0 +1,26 @@
+#!/bin/bash
+# Start the development environment with docker-compose
+
+set -e
+
+echo "🚀 Starting Rails 8 development environment with Docker Compose..."
+echo ""
+
+docker-compose up -d
+
+echo ""
+echo "✅ Development environment started!"
+echo ""
+echo "Services running:"
+docker-compose ps
+echo ""
+echo "🌐 Rails server: http://localhost:3000"
+echo "📊 Health check: http://localhost:3000/up"
+echo ""
+echo "Useful commands:"
+echo "  docker-compose logs -f      - View all logs"
+echo "  docker-compose logs -f web  - View Rails logs"
+echo "  docker-compose logs -f css  - View CSS compilation logs"
+echo "  docker-compose down         - Stop all services"
+echo "  docker-compose exec web bash - Access Rails container shell"
+

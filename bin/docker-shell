@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Connect to a running AI coding session
+# Usage: ./bin/docker-shell [session-name]
+
+set -e
+
+SESSION_NAME="${1:-}"
+
+if [ -z "$SESSION_NAME" ]; then
+  echo "🔍 Active sessions:"
+  docker ps --filter "name=rails-ai-" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+  echo ""
+  echo "Usage: $0 <session-name>"
+  echo "Example: $0 my-session"
+  exit 1
+fi
+
+CONTAINER_NAME="rails-ai-${SESSION_NAME}"
+
+if ! docker ps --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+  echo "❌ Session '$SESSION_NAME' not found or not running"
+  echo ""
+  echo "🔍 Active sessions:"
+  docker ps --filter "name=rails-ai-" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+  exit 1
+fi
+
+echo "🔌 Connecting to session: $SESSION_NAME"
+echo ""
+
+docker exec -it "$CONTAINER_NAME" bash
+

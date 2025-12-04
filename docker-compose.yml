@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      target: development
+    ports:
+      - "3001:3000"
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+    environment:
+      - RAILS_ENV=development
+      - RAILS_LOG_TO_STDOUT=true
+    stdin_open: true
+    tty: true
+
+  # Staging environment - mimics Fly.io production locally
+  staging:
+    build:
+      context: .
+      target: staging
+    ports:
+      - "3002:3000"
+    environment:
+      - RAILS_ENV=production
+      - SECRET_KEY_BASE=dummy_secret_for_local_staging_only
+      - RAILS_SERVE_STATIC_FILES=true
+      - RAILS_LOG_TO_STDOUT=true
+    command: ["./bin/rails", "server", "-b", "0.0.0.0"]
+
+volumes:
+  bundle_cache:
+
+

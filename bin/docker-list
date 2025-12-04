@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# List all AI coding sessions
+
+echo "🤖 AI Coding Sessions"
+echo ""
+echo "📊 Running Sessions:"
+docker ps --filter "name=rails-ai-" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null || echo "No running sessions"
+
+echo ""
+echo "💤 Stopped Sessions:"
+docker ps -a --filter "name=rails-ai-" --filter "status=exited" --format "table {{.Names}}\t{{.Status}}" 2>/dev/null || echo "No stopped sessions"
+
+echo ""
+echo "📁 Session Workspaces:"
+SESSIONS_DIR="$(dirname "$0")/../sessions"
+if [ -d "$SESSIONS_DIR" ]; then
+  ls -la "$SESSIONS_DIR" 2>/dev/null | tail -n +4 || echo "No session workspaces"
+else
+  echo "No sessions directory"
+fi
+
+echo ""
+echo "💾 Image Info:"
+docker images rails8-template-dev --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}\t{{.CreatedAt}}"
+

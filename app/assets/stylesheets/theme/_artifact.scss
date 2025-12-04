@@ -1,0 +1,218 @@
+// ==========================================
+// ARTIFACT THEME (Reusable)
+// ==========================================
+// A modern, minimal design system optimized for AI-assisted development
+// Can be imported and reused across projects
+//
+// Note: Core colors and Bootstrap overrides are in _variables.scss
+// This file contains component styles and enhancements
+
+// ============================================================================
+// CSS Custom Properties (for runtime use)
+// ============================================================================
+:root {
+  --art-accent: #D97757;
+}
+
+// ============================================================================
+// Base Typography Enhancements
+// ============================================================================
+body {
+  letter-spacing: -0.015em;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.03em;
+}
+
+// ============================================================================
+// Navigation
+// ============================================================================
+.navbar {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid $border-color;
+}
+
+.navbar-brand {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-size: 1.5rem;
+}
+
+.nav-link {
+  font-weight: 500;
+  color: $secondary;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+  
+  &:hover, &.active {
+    color: $primary;
+  }
+}
+
+// ============================================================================
+// Buttons
+// ============================================================================
+.btn {
+  letter-spacing: -0.01em;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.btn-primary {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  
+  &:hover {
+    background-color: #000000;
+    border-color: #000000;
+    transform: translateY(-1px);
+  }
+}
+
+.btn-outline-secondary {
+  &:hover {
+    background-color: $light;
+    border-color: darken($border-color, 10%);
+  }
+}
+
+// ============================================================================
+// Cards
+// ============================================================================
+.card {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: darken($border-color, 10%);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+  }
+}
+
+.card-header {
+  padding: 1.25rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: $secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+// ============================================================================
+// Status Indicators
+// ============================================================================
+.status-dot {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.status-success { 
+  background-color: $success; 
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); 
+}
+
+.status-neutral { 
+  background-color: $secondary; 
+}
+
+// ============================================================================
+// Data Lists
+// ============================================================================
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid $light;
+  font-size: 0.95rem;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.data-label {
+  color: $secondary;
+  font-weight: 500;
+}
+
+.data-value {
+  color: $primary;
+  font-weight: 600;
+  font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', monospace;
+  font-size: 0.9em;
+}
+
+// ============================================================================
+// Terminal Component
+// ============================================================================
+.terminal-card {
+  background-color: #1A1A1A;
+  border: 1px solid #333;
+  border-radius: var(--bs-border-radius);
+  color: #E5E5E5;
+  font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', monospace;
+  overflow: hidden;
+}
+
+.terminal-header {
+  background-color: #262626;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #333;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.bg-red { background-color: #EF4444; }
+.bg-yellow { background-color: #F59E0B; }
+.bg-green { background-color: #10B981; }
+
+.terminal-body {
+  padding: 1.5rem;
+}
+
+.code-comment { 
+  color: #6B7280; 
+  margin-bottom: 0.25rem; 
+  display: block; 
+}
+
+.code-command { 
+  color: #10B981; 
+  margin-bottom: 1.5rem; 
+  display: block; 
+  
+  &::before { 
+    content: "$ "; 
+    color: #6B7280; 
+  }
+  
+  &:last-child { 
+    margin-bottom: 0; 
+  }
+}
+
+// ============================================================================
+// Feature List
+// ============================================================================
+.feature-check {
+  color: #10B981;
+  margin-right: 0.5rem;
+}
+

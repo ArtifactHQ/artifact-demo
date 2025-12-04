@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Stop and optionally remove an AI coding session
+# Usage: ./bin/docker-stop [session-name] [--remove]
+
+set -e
+
+SESSION_NAME="${1:-}"
+REMOVE_FLAG="${2:-}"
+
+if [ -z "$SESSION_NAME" ]; then
+  echo "🔍 Running sessions:"
+  docker ps --filter "name=rails-ai-" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+  echo ""
+  echo "Usage: $0 <session-name> [--remove]"
+  echo "Example: $0 my-session"
+  echo "Example: $0 my-session --remove  (stop and remove)"
+  exit 1
+fi
+
+CONTAINER_NAME="rails-ai-${SESSION_NAME}"
+
+if ! docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+  echo "❌ Session '$SESSION_NAME' not found"
+  exit 1
+fi
+
+echo "🛑 Stopping session: $SESSION_NAME"
+docker stop "$CONTAINER_NAME"
+
+if [ "$REMOVE_FLAG" = "--remove" ] || [ "$REMOVE_FLAG" = "-r" ]; then
+  echo "🗑️  Removing container..."
+  docker rm "$CONTAINER_NAME"
+  echo "✅ Session stopped and removed"
+else
+  echo "✅ Session stopped (use --remove to delete)"
+fi
