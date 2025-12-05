@@ -1,0 +1,220 @@
+// ============================================================================
+// PRODUCT MOCKUP VIEWS
+// ============================================================================
+// Styles for different view states (Doc, Design, Preview)
+
+// ============================================================================
+// DOC VIEW
+// ============================================================================
+// Uses full Artifact UI styles (inherits from parent)
+
+// ============================================================================
+// DESIGN VIEW
+// ============================================================================
+.product-mockup .view-container[data-view="design"] {
+  // Reset typography enhancements for standard Bootstrap styling
+  letter-spacing: normal;
+  -webkit-font-smoothing: auto;
+  
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: normal;
+  }
+  
+  .design-canvas {
+    .btn-primary {
+      background-color: $primary;
+      border-color: $primary;
+      box-shadow: $mockup-shadow-sm;
+      transform: none;
+      
+      &:hover {
+        background-color: darken($primary, 5%);
+        border-color: darken($primary, 5%);
+        transform: none;
+      }
+    }
+
+    .btn {
+      letter-spacing: normal;
+      transition: $mockup-transition-base;
+    }
+  }
+}
+
+// ============================================================================
+// PREVIEW VIEW
+// ============================================================================
+.product-mockup .view-container[data-view="preview"] {
+  // Dynamic theme styling from design selections
+  // Theme colors applied via JavaScript (see app_preview_controller.js)
+  
+  // Reset typography enhancements
+  letter-spacing: normal;
+  -webkit-font-smoothing: auto;
+  
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: normal;
+  }
+  
+  .btn {
+    letter-spacing: normal;
+  }
+}
+
+.product-mockup {
+  .preview-container {
+    @include flex-center;
+    height: 100%;
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .preview-content {
+    @include flex-center;
+  }
+
+  .preview-phone {
+    width: 280px;
+    overflow: hidden;
+
+    .preview-phone-header {
+      padding: 1.25rem;
+      background: $mockup-bg-primary;
+      border-bottom: 1px solid $mockup-border-medium;
+
+      .preview-app-title {
+        font-size: $mockup-font-size-lg;
+        font-weight: 700;
+        color: $mockup-text-primary;
+        margin-bottom: 0.25rem;
+      }
+
+      .preview-app-subtitle {
+        font-size: $mockup-font-size-sm;
+        color: $mockup-text-quaternary;
+      }
+    }
+
+    .preview-phone-content {
+      padding: 1.25rem;
+      background: $mockup-bg-secondary;
+      max-height: 400px;
+      overflow-y: auto;
+      @include scrollbar-custom;
+
+      .task-section-label {
+        font-size: 0.6875rem;
+        font-weight: 700;
+        color: $mockup-text-quaternary;
+        @include text-uppercase;
+        margin-bottom: 0.5rem;
+        margin-top: 1rem;
+
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+
+      .task-checkbox-size {
+        width: 16px;
+        height: 16px;
+        margin-top: 2px;
+      }
+
+      .task-item-wrapper {
+        padding: 0.625rem;
+        border-radius: $mockup-border-radius-md;
+        transition: background 0.15s ease;
+
+        &:hover {
+          background: $mockup-bg-tertiary;
+        }
+      }
+
+      .task-item-wrapper-small {
+        padding: 0.375rem 0.625rem;
+        border-radius: $mockup-border-radius-md;
+        background: rgba(167, 243, 208, 0.2);
+        transition: background 0.15s ease;
+
+        &:hover {
+          background: rgba(167, 243, 208, 0.3);
+        }
+      }
+    }
+  }
+}
+
+// ============================================================================
+// VIEW-SPECIFIC TYPOGRAPHY
+// ============================================================================
+.product-mockup {
+  .preview-app-title {
+    font-size: $mockup-font-size-lg;
+    font-weight: 700;
+    color: $mockup-text-primary;
+    margin-bottom: 0.5rem;
+  }
+
+  .preview-app-subtitle {
+    font-size: $mockup-font-size-sm;
+    color: $mockup-text-quaternary;
+  }
+
+  .task-section-label {
+    font-size: $mockup-font-size-sm;
+    font-weight: 600;
+    color: $mockup-text-quaternary;
+    @include text-uppercase;
+    margin-bottom: 0.75rem;
+    padding: 0 0.5rem;
+  }
+
+  .task-item-wrapper {
+    padding: 0.75rem;
+    background: $mockup-bg-secondary;
+    border-radius: $mockup-border-radius-lg;
+  }
+
+  .task-item-wrapper-small {
+    padding: 0.625rem;
+    background: #E7F5EF;
+    border-radius: $mockup-border-radius-lg;
+  }
+
+  .task-checkbox-size {
+    width: $mockup-icon-size;
+    height: $mockup-icon-size;
+  }
+}
+
+// ============================================================================
+// BUTTONS (WITHIN PRODUCT MOCKUP)
+// ============================================================================
+.product-mockup {
+  .btn {
+    letter-spacing: -0.01em;
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .btn-primary {
+    background-color: $primary;
+    border-color: $primary;
+    color: $mockup-bg-primary;
+    box-shadow: $mockup-shadow-sm;
+    
+    &:hover {
+      background-color: #000000;
+      border-color: #000000;
+      transform: translateY(-1px);
+    }
+  }
+
+  .btn-outline-secondary {
+    &:hover {
+      background-color: $mockup-bg-secondary;
+      border-color: darken($mockup-border-medium, 10%);
+    }
+  }
+}
+

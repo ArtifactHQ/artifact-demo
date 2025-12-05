@@ -1,63 +1,324 @@
-// ==========================================
-// PRODUCT MOCKUP COMPLETE STYLES
-// ==========================================
-// All-in-one styles for the interactive product mockup
-// Includes: structure, components, utilities, and theme enhancements
+// ============================================================================
+// PRODUCT MOCKUP - MAIN STYLES
+// ============================================================================
+// Interactive product demo interface
+// Imports: variables, mixins
+// Structure: chrome → interface (sidebar, main-editor, right-sidebar)
+
+// Import dependencies
+@import "product-mockup-variables";
+@import "product-mockup-mixins";
 
 // ============================================================================
-// MIXINS & UTILITIES
+// BASE STRUCTURE
 // ============================================================================
-@mixin flex-center {
+.product-mockup {
+  width: 100%;
+  height: $mockup-interface-height;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  background: $mockup-bg-primary;
+  box-shadow: none;
+  overflow: hidden;
+  position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  flex-direction: column;
 
-@mixin flex-between {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  // Typography enhancements
+  letter-spacing: -0.015em;
+  -webkit-font-smoothing: antialiased;
 
-@mixin circle($size) {
-  width: $size;
-  height: $size;
-  border-radius: 50%;
-}
-
-@mixin square($size) {
-  width: $size;
-  height: $size;
-}
-
-@mixin monospace {
-  font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', monospace;
-}
-
-@mixin pulse-animation {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-@keyframes fadeInOut {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
-
-@mixin mobile-only {
-  @media (max-width: 767px) {
-    @content;
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.03em;
   }
 }
 
 // ============================================================================
-// ADDITIONAL UTILITY CLASSES
+// BROWSER CHROME
+// ============================================================================
+.product-mockup .browser-chrome {
+  background: $mockup-bg-chrome;
+  border-bottom: 1px solid $mockup-border-medium;
+  padding: $mockup-chrome-padding;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+
+  // Window dots (left side)
+  .dots {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    position: absolute;
+    left: $mockup-chrome-padding;
+  }
+
+  .dot {
+    @include circle($mockup-dot-size);
+    background: $mockup-border-dark;
+  }
+
+  // Tab navigation (center)
+  .tabs {
+    display: flex;
+    background: $mockup-bg-tertiary;
+    border-radius: $mockup-border-radius-full;
+    padding: 0.125rem 0.25rem;
+
+    .tab {
+      padding: 0.25rem 1rem;
+      border-radius: $mockup-border-radius-full;
+      font-size: $mockup-font-size-sm;
+      font-weight: 500;
+      color: $mockup-text-quaternary;
+      @include clickable;
+      white-space: nowrap;
+
+      &.active {
+        background: $mockup-bg-primary;
+        color: $mockup-text-primary;
+        box-shadow: $mockup-shadow-sm;
+      }
+
+      &:hover:not(.active) {
+        color: $mockup-text-primary;
+      }
+    }
+  }
+
+  // Spacer (right side)
+  .tab-spacer {
+    position: absolute;
+    right: $mockup-chrome-padding;
+  }
+}
+
+// ============================================================================
+// APP INTERFACE CONTAINER
+// ============================================================================
+.product-mockup .app-interface {
+  display: flex;
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+}
+
+// ============================================================================
+// LEFT SIDEBAR
+// ============================================================================
+.product-mockup .app-interface .sidebar {
+  width: $mockup-sidebar-width;
+  border-right: 1px solid $mockup-border-light;
+  background: $mockup-bg-secondary;
+  padding: $mockup-sidebar-padding;
+  overflow-y: auto;
+  flex-shrink: 0;
+  @include scrollbar-custom;
+
+  @include hide-on-mobile;
+
+  .sidebar-company-header {
+    font-weight: 600;
+    color: $mockup-text-primary;
+    font-size: $mockup-font-size-base;
+  }
+
+  .sidebar-item {
+    padding: 0.25rem 0.5rem;
+    font-size: $mockup-font-size-sm;
+    font-weight: 500;
+    color: $mockup-text-tertiary;
+    border-radius: $mockup-border-radius-sm;
+    @include hoverable($mockup-border-medium);
+
+    &.active {
+      background: $mockup-border-medium;
+      color: $mockup-text-primary;
+    }
+  }
+}
+
+// ============================================================================
+// MAIN EDITOR
+// ============================================================================
+.product-mockup .app-interface .main-editor {
+  flex: 1;
+  overflow-y: auto;
+  background: $mockup-bg-primary;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  @include scrollbar-custom;
+
+  // View containers (Doc, Design, Preview)
+  .view-container {
+    display: none;
+    padding: $mockup-content-padding;
+    min-height: 100%;
+    overflow-y: auto;
+
+    @include mobile-only {
+      padding: $mockup-content-padding-mobile;
+    }
+
+    &.active {
+      display: block;
+    }
+  }
+
+  // Common elements across views
+  .breadcrumb-text {
+    font-size: $mockup-font-size-sm;
+    color: $mockup-text-quinary;
+    margin-bottom: 1rem;
+  }
+
+  .editor-title {
+    font-size: $mockup-font-size-2xl;
+    font-weight: 700;
+    font-family: $font-family-serif;
+    color: $mockup-text-primary;
+    margin-bottom: 1.5rem;
+  }
+
+  .ai-summary {
+    padding: 0.75rem;
+    background: $mockup-bg-secondary;
+    border: 1px solid $mockup-border-light;
+    border-radius: $mockup-border-radius-md;
+    color: $mockup-text-quaternary;
+    font-size: $mockup-font-size-base;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+
+  // Interactive checkbox
+  .checkbox {
+    @include square($mockup-checkbox-size);
+    margin-top: 0.25rem;
+    border: 1px solid $mockup-border-dark;
+    border-radius: $mockup-border-radius-sm;
+    flex-shrink: 0;
+    @include clickable;
+
+    &:hover {
+      border-color: $mockup-accent-primary;
+      transform: scale(1.1);
+    }
+
+    &.checked {
+      background: $mockup-accent-primary;
+      border-color: $mockup-accent-primary;
+      @include flex-center;
+      color: $mockup-bg-primary;
+      font-size: $mockup-font-size-xs;
+    }
+  }
+
+  // Animated cursor
+  .animated-cursor {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    pointer-events: none;
+    @include pulse-animation;
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.3));
+    }
+
+    .cursor-tooltip {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      background: $mockup-accent-primary;
+      color: $mockup-bg-primary;
+      font-size: $mockup-font-size-xs;
+      padding: 0.125rem 0.5rem;
+      border-radius: $mockup-border-radius-full;
+      white-space: nowrap;
+      @include fade-animation;
+    }
+  }
+}
+
+// ============================================================================
+// RIGHT SIDEBAR
+// ============================================================================
+.product-mockup .app-interface .right-sidebar {
+  width: $mockup-right-sidebar-width;
+  border-left: 1px solid $mockup-border-light;
+  background: $mockup-bg-secondary;
+  padding: $mockup-sidebar-padding;
+  overflow-y: auto;
+  flex-shrink: 0;
+  @include scrollbar-custom;
+
+  @include hide-on-tablet;
+
+  // Tab bar for right sidebar
+  .tab-bar {
+    background: $mockup-border-medium;
+    border-radius: $mockup-border-radius-lg;
+    padding: 0.25rem;
+  }
+
+  .tab-bar-item {
+    padding: 0.5rem 0.75rem;
+    font-size: $mockup-font-size-sm;
+    font-weight: 500;
+    @include clickable;
+    border-radius: $mockup-border-radius-md;
+    text-align: center;
+
+    &.tab-bar-item-active {
+      background: $mockup-bg-primary;
+      color: $mockup-text-primary;
+      box-shadow: $mockup-shadow-sm;
+    }
+
+    &.tab-bar-item-inactive {
+      color: $mockup-text-quaternary;
+
+      &:hover {
+        color: $mockup-text-secondary;
+      }
+    }
+  }
+
+  // Template cards
+  .template-card {
+    @include card(0.75rem, $mockup-shadow-sm);
+    margin-bottom: 0.75rem;
+
+    &:last-child {
+      opacity: 0.6;
+    }
+
+    .card-title {
+      font-size: $mockup-font-size-sm;
+      font-weight: 700;
+      color: $mockup-text-primary;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-desc {
+      font-size: $mockup-font-size-xs;
+      color: $mockup-text-quaternary;
+    }
+  }
+}
+
+// ============================================================================
+// UTILITY CLASSES
 // ============================================================================
 .product-mockup {
+  // Layout utilities
   .max-w-42 {
     max-width: 42rem;
   }
@@ -66,6 +327,24 @@
     line-height: 1.625;
   }
 
+  .tab-spacer {
+    flex: 1;
+  }
+
+  // Text utilities
+  .text-stone-400 { color: #A8A29E; }
+  .text-stone-500 { color: #78716C; }
+  .text-stone-700 { color: #44403C; }
+  .text-stone-800 { color: #292524; }
+  .text-13 { font-size: 0.8125rem; }
+
+  // Spacing utilities
+  .gap-2 { gap: 0.5rem !important; }
+  .gap-3 { gap: 0.75rem !important; }
+  .pl-6 { padding-left: 1.5rem !important; }
+  .pl-7 { padding-left: 1.75rem !important; }
+
+  // Decorative utilities
   .underline-accent {
     text-decoration: underline;
     text-decoration-color: $primary;
@@ -73,856 +352,80 @@
     text-underline-offset: 3px;
   }
 
-  .content-heading {
-    font-size: $font-size-lg;
-    font-weight: $font-weight-semibold;
-    color: $text-primary;
-    margin-bottom: $spacer-md;
-    margin-top: $spacer-xl;
-  }
-
   .breadcrumb-highlight {
-    color: $text-primary;
-    font-weight: $font-weight-semibold;
-  }
-
-  .section-header-text {
-    font-size: $font-size-2xs;
-    font-weight: $font-weight-bold;
-    color: $text-tertiary;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: $spacer-sm;
-    padding-left: $spacer-sm;
+    color: $mockup-text-primary;
+    font-weight: 600;
   }
 
   .company-icon {
-    @include square(1.5rem);
+    @include square($mockup-icon-size);
     @include flex-center;
-    background: $text-primary;
-    color: $text-white;
-    border-radius: $border-radius-sm;
-    font-weight: $font-weight-bold;
-    font-size: $font-size-xs;
+    background: $mockup-text-primary;
+    color: $mockup-bg-primary;
+    border-radius: $mockup-border-radius-sm;
+    font-weight: 700;
+    font-size: $mockup-font-size-sm;
   }
 
-  .pl-6 {
-    padding-left: 1.5rem !important;
+  .section-header-text {
+    font-size: $mockup-font-size-xs;
+    font-weight: 700;
+    color: $mockup-text-quaternary;
+    @include text-uppercase;
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
   }
 
-  .pl-7 {
-    padding-left: 1.75rem !important;
-  }
-
-  .text-stone-400 {
-    color: #A8A29E;
-  }
-
-  .text-stone-500 {
-    color: #78716C;
-  }
-
-  .text-stone-700 {
-    color: #44403C;
-  }
-
-  .text-stone-800 {
-    color: #292524;
-  }
-
-  .text-13 {
-    font-size: 0.8125rem;
-  }
-
-  .gap-2 {
-    gap: 0.5rem !important;
-  }
-
-  .gap-3 {
-    gap: 0.75rem !important;
-  }
-
-  .tab-spacer {
-    flex: 1;
-  }
-}
-
-// ==========================================
-// PRODUCT MOCKUP STRUCTURE
-// ==========================================
-.product-mockup {
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  border-radius: 0;
-  border: none;
-  background: #FFFFFF;
-  box-shadow: none;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-
-  .browser-chrome {
-    background: #F9F8F0;
-    border-bottom: 1px solid #E7E5E4;
-    padding: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    position: relative;
-
-    .dots {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      position: absolute;
-      left: 0.75rem;
-    }
-
-    .dot {
-      @include circle(0.75rem);
-      background: #D4D4D8;
-    }
-
-    .tabs {
-      display: flex;
-      background: #F5F5F4;
-      border-radius: 9999px;
-      padding: 0.125rem 0.25rem;
-
-      .tab {
-        padding: 0.25rem 1rem;
-        border-radius: 9999px;
-        font-size: 0.75rem;
-        font-weight: 500;
-        color: #78716C;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        white-space: nowrap;
-
-        &.active {
-          background: #FFFFFF;
-          color: #1C1917;
-          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        &:hover:not(.active) {
-          color: #1C1917;
-        }
-      }
-    }
-
-    .tab-spacer {
-      position: absolute;
-      right: 0.75rem;
-    }
-  }
-
-  .app-interface {
-    display: flex;
-    flex: 1;
-    text-align: left;
-    overflow: hidden;
-
-    .sidebar {
-      width: 16rem;
-      border-right: 1px solid #F5F5F4;
-      background: #FAFAF9;
-      padding: 1rem;
-      overflow-y: auto;
-      flex-shrink: 0;
-
-      @include mobile-only {
-        display: none;
-      }
-
-      .sidebar-company-header {
-        font-weight: 600;
-        color: #1C1917;
-        font-size: 0.875rem;
-      }
-
-      .sidebar-item {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.75rem;
-        font-weight: 500;
-        color: #57534E;
-        border-radius: 0.25rem;
-        cursor: pointer;
-        transition: background 0.2s ease;
-
-        &:hover {
-          background: #E7E5E4;
-        }
-
-        &.active {
-          background: #E7E5E4;
-          color: #1C1917;
-        }
-      }
-    }
-
-    .main-editor {
-      flex: 1;
-      overflow-y: auto;
-      background: #FFFFFF;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-
-      .view-container {
-        display: none;
-        padding: 3rem;
-        min-height: 100%;
-        overflow-y: auto;
-
-        @include mobile-only {
-          padding: 2rem 1rem;
-        }
-
-        &.active {
-          display: block;
-        }
-      }
-
-      .breadcrumb-text {
-        font-size: 0.75rem;
-        color: #A8A29E;
-        margin-bottom: 1rem;
-      }
-
-      .editor-title {
-        font-size: 1.875rem;
-        font-weight: 700;
-        font-family: $font-family-serif;
-        color: #1C1917;
-        margin-bottom: 1.5rem;
-      }
-
-      .ai-summary {
-        padding: 0.75rem;
-        background: #FAFAF9;
-        border: 1px solid #F5F5F4;
-        border-radius: 0.375rem;
-        color: #78716C;
-        font-size: 0.875rem;
-        font-style: italic;
-        margin-bottom: 1.5rem;
-      }
-
-      .checkbox {
-        @include square(1rem);
-        margin-top: 0.25rem;
-        border: 1px solid #D4D4D8;
-        border-radius: 0.25rem;
-        flex-shrink: 0;
-        cursor: pointer;
-        transition: all 0.2s ease;
-
-        &:hover {
-          border-color: #D95D39;
-          transform: scale(1.1);
-        }
-
-        &.checked {
-          background: #D95D39;
-          border-color: #D95D39;
-          @include flex-center;
-          color: #FFFFFF;
-          font-size: 0.625rem;
-        }
-      }
-
-      .animated-cursor {
-        position: absolute;
-        top: 40%;
-        left: 40%;
-        pointer-events: none;
-        @include pulse-animation;
-
-        svg {
-          width: $spacer-xl;
-          height: $spacer-xl;
-          filter: drop-shadow(0 4px 3px rgba(0, 0, 0, $opacity-30));
-        }
-
-        .cursor-tooltip {
-          position: absolute;
-          left: $spacer-lg;
-          top: $spacer-lg;
-          background: $secondary;
-          color: $text-white;
-          font-size: $font-size-xs;
-          padding: calc($spacer-xs / 2) $spacer-sm;
-          border-radius: $border-radius-full;
-          white-space: nowrap;
-          animation: fadeInOut 3s $transition-ease-in-out infinite;
-        }
-      }
-    }
-
-    .right-sidebar {
-      width: 18rem;
-      border-left: 1px solid #F5F5F4;
-      background: #FAFAF9;
-      padding: 1rem;
-      overflow-y: auto;
-      flex-shrink: 0;
-
-      @media (max-width: 991px) {
-        display: none;
-      }
-
-      .tab-bar {
-        background: #E7E5E4;
-        border-radius: 0.5rem;
-        padding: 0.25rem;
-      }
-
-      .tab-bar-item {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.75rem;
-        font-weight: 500;
-        cursor: pointer;
-        border-radius: 0.375rem;
-        transition: all 0.15s ease;
-        text-align: center;
-
-        &.tab-bar-item-active {
-          background: #FFFFFF;
-          color: #1C1917;
-          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        &.tab-bar-item-inactive {
-          color: #78716C;
-
-          &:hover {
-            color: #44403C;
-          }
-        }
-      }
-
-      .template-card {
-        background: #FFFFFF;
-        padding: 0.75rem;
-        border-radius: 0.375rem;
-        border: 1px solid #E7E5E4;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        margin-bottom: 0.75rem;
-
-        &:last-child {
-          opacity: 0.6;
-        }
-
-        .card-title {
-          font-size: 0.75rem;
-          font-weight: 700;
-          color: #1C1917;
-          margin-bottom: 0.25rem;
-        }
-
-        .card-desc {
-          font-size: 0.625rem;
-          color: #78716C;
-        }
-      }
-    }
+  .content-heading {
+    font-size: $mockup-font-size-lg;
+    font-weight: 600;
+    color: $mockup-text-primary;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
   }
 }
 
 // ============================================================================
-// DESIGN VIEW STYLES
+// DESIGN VIEW SPECIFIC STYLES
 // ============================================================================
 .product-mockup {
   .design-header-title {
-    font-size: 20px;
+    font-size: $mockup-font-size-lg;
     font-weight: 700;
-    color: #1C1917;
+    color: $mockup-text-primary;
     margin: 0;
   }
 
   .btn-publish {
-    padding: 10px 20px;
-    font-size: 14px;
+    padding: 0.625rem 1.25rem;
+    font-size: $mockup-font-size-base;
   }
 
   .template-heading {
-    font-size: 20px;
+    font-size: $mockup-font-size-lg;
     font-weight: 700;
-    color: #1C1917;
-    margin-bottom: 20px;
+    color: $mockup-text-primary;
+    margin-bottom: 1.25rem;
   }
 
   .color-palette-heading {
-    font-size: 14px;
+    font-size: $mockup-font-size-base;
     font-weight: 600;
-    color: #44403C;
-    margin-bottom: 16px;
-  }
-}
-
-// ============================================
-// PRODUCT MOCKUP COMPONENTS
-// ============================================
-// Component styles specific to the product mockup
-// Extracted from global utilities and cards to prevent namespace pollution
-
-// ========== TEMPLATE SELECTOR ==========
-
-.template-selector {
-  border: 2px solid transparent;
-  border-radius: 12px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover {
-    border-color: #E7E5E4;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    color: $mockup-text-secondary;
+    margin-bottom: 1rem;
   }
 
-  &.active {
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  }
-
-  .template-preview {
-    height: 8rem;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .template-info {
-    background: #FFFFFF;
-    padding: 16px;
-    border-top: 1px solid #F5F5F4;
-  }
-
-  .template-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1C1917;
-    margin-bottom: 6px;
-  }
-
-  .template-desc {
-    font-size: 13px;
-    color: #78716C;
-    line-height: 1.3;
-  }
-
-  .template-decoration-circle {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    top: 20px;
-    left: 20px;
-  }
-
-  .template-decoration-shape {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background: rgba(255, 255, 255, 0.2);
-    bottom: 15px;
-    right: 15px;
-    border-radius: $border-radius-sm;
-  }
-
-  .template-decoration-line {
-    position: absolute;
-    width: 60%;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.3);
-    bottom: 30px;
-    left: 20px;
-  }
-
-  .template-decoration-organic {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    svg {
-      width: 50px;
-      height: 50px;
-      opacity: 0.3;
-    }
-  }
-}
-
-// ========== THEME SECTION ACCORDION ==========
-
-.theme-section {
-  background: #FFFFFF;
-  border: 1px solid #E7E5E4;
-  border-radius: 12px;
-  overflow: hidden;
-
-  .theme-section-header {
-    @include flex-between;
-    padding: 16px 20px;
-    cursor: pointer;
-    transition: background 0.15s ease;
-
-    &:hover {
-      background: #FAFAF9;
-    }
-
-    .chevron {
-      transition: transform 0.2s ease;
-      color: #78716C;
-    }
-
-    &.collapsed .chevron {
-      transform: rotate(-90deg);
-    }
-  }
-
-  .theme-section-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: #1C1917;
-    margin: 0;
-  }
-
-  .theme-section-content {
-    padding: 0 20px 20px;
-    display: none;
-    border-top: 1px solid #F5F5F4;
-    padding-top: 16px;
-
-    &.active {
-      display: block;
-    }
-  }
-
-  .theme-section-desc {
-    font-size: 14px;
-    color: #78716C;
-    margin-bottom: 24px;
-  }
-}
-
-// ========== COLOR SWATCHES ==========
-
-.color-swatch-container {
-  .color-swatch {
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: 2px solid transparent;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-
-    &:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-    }
-
-    &.active {
-      border-color: #1C1917;
-      box-shadow: 0 0 0 3px rgba(28, 25, 23, 0.1);
-    }
-
-    // Set background colors from data attributes
-    &[data-swatch-color="#A5B4FC"] { background: #A5B4FC; }
-    &[data-swatch-color="#2563EB"] { background: #2563EB; }
-    &[data-swatch-color="#0D3C9A"] { background: #0D3C9A; }
-    &[data-swatch-color="#A7F3D0"] { background: #A7F3D0; }
-    &[data-swatch-color="#FDE68A"] { background: #FDE68A; }
-    &[data-swatch-color="#FCA5A5"] { background: #FCA5A5; }
-  }
-
-  .color-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: #1C1917;
-    margin-top: 8px;
-    margin-bottom: 4px;
-  }
-
-  .color-value {
-    font-size: 12px;
-    color: #78716C;
-    @include monospace;
-  }
-}
-
-// ========== PREVIEW PHONE ==========
-
-.preview-phone {
-  background: #FFFFFF;
-  border: 8px solid #1C1917;
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  margin: 0 auto;
-}
-
-.preview-phone-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.preview-phone-content {
-  text-align: left;
-}
-
-// ========== DESIGN CANVAS ==========
-
-.design-canvas {
-  padding: 24px;
-  height: 100%;
-  overflow-y: auto;
-}
-
-// ========== NESTED TASK WRAPPER ==========
-
-.nested-task-wrapper {
-  margin-left: 24px;
-  margin-bottom: 20px;
-}
-
-// ========== SIDEBAR COMPANY HEADER ==========
-
-.sidebar-company-header {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1C1917;
-}
-
-// ========== GRADIENT UTILITIES ==========
-
-.gradient-minimalist {
-  background: linear-gradient(135deg, #FED7D7 0%, #C4B5B0 100%);
-  position: relative;
-}
-
-.gradient-bold {
-  background: linear-gradient(135deg, #FDE68A 0%, #F97316 50%, #3B82F6 100%);
-}
-
-.gradient-corporate {
-  background: linear-gradient(180deg, #374151 0%, #1F2937 100%);
-  position: relative;
-}
-
-.gradient-organic {
-  background: linear-gradient(135deg, #FED7D7 0%, #DDFAD9 100%);
-  position: relative;
-}
-
-// ========== TAB BAR ==========
-
-.tab-bar {
-  background: $border-color;
-}
-
-.tab-bar-item {
-  font-size: $font-size-2xs;
-  font-weight: $font-weight-medium;
-  padding: $spacer-xs;
-}
-
-.tab-bar-item-active {
-  background: $background-card;
-  border-radius: $border-radius-sm;
-  box-shadow: $shadow-xs;
-}
-
-.tab-bar-item-inactive {
-  color: $text-tertiary;
-}
-
-// ============================================================================
-// PREVIEW VIEW STYLES
-// ============================================================================
-.product-mockup {
-  .preview-container {
-    @include flex-center;
+  .design-canvas {
+    padding: 1.5rem;
     height: 100%;
-    padding: 32px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  }
-
-  .preview-content {
-    @include flex-center;
-  }
-
-  .preview-phone {
-    width: 280px;
-    overflow: hidden;
-
-    .preview-phone-header {
-      padding: 20px;
-      background: #FFFFFF;
-      border-bottom: 1px solid #E7E5E4;
-
-      .preview-app-title {
-        font-size: 18px;
-        font-weight: 700;
-        color: #1C1917;
-        margin-bottom: 4px;
-      }
-
-      .preview-app-subtitle {
-        font-size: 13px;
-        color: #78716C;
-      }
-    }
-
-    .preview-phone-content {
-      padding: 20px;
-      background: #FAFAF9;
-      max-height: 400px;
-      overflow-y: auto;
-
-      .task-section-label {
-        font-size: 11px;
-        font-weight: 700;
-        color: #78716C;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: 8px;
-        margin-top: 16px;
-
-        &:first-child {
-          margin-top: 0;
-        }
-      }
-
-      .task-checkbox-size {
-        width: 16px;
-        height: 16px;
-        margin-top: 2px;
-      }
-
-      .task-item-wrapper {
-        padding: 10px;
-        border-radius: 6px;
-        transition: background 0.15s ease;
-
-        &:hover {
-          background: #F5F5F4;
-        }
-      }
-
-      .task-item-wrapper-small {
-        padding: 6px 10px;
-        border-radius: 6px;
-        background: rgba(167, 243, 208, 0.2);
-        transition: background 0.15s ease;
-
-        &:hover {
-          background: rgba(167, 243, 208, 0.3);
-        }
-      }
-    }
+    overflow-y: auto;
+    @include scrollbar-custom;
   }
 }
 
 // ============================================================================
-// TYPOGRAPHY ENHANCEMENTS
+// COMPONENT IMPORTS
 // ============================================================================
-.product-mockup {
-  letter-spacing: -0.015em;
-  -webkit-font-smoothing: antialiased;
-
-  h1, h2, h3, h4, h5, h6 {
-    letter-spacing: -0.03em;
-  }
-
-  // ============================================================================
-  // Buttons (within product mockup)
-  // ============================================================================
-  .btn {
-    letter-spacing: -0.01em;
-    transition: all $transition-fast cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  .btn-primary {
-    background-color: $primary;
-    border-color: $primary;
-    color: $text-white;
-    box-shadow: $shadow-xs;
-    
-    &:hover {
-      background-color: #000000;
-      border-color: #000000;
-      transform: translateY(-1px);
-    }
-  }
-
-  .btn-outline-secondary {
-    &:hover {
-      background-color: $stone-50;
-      border-color: darken($border-color, 10%);
-    }
-  }
-
-  // ============================================================================
-  // Tab Scoping Strategy
-  // ============================================================================
-  
-  // DOC TAB: Uses full Artifact UI styles
-  .view-container[data-view="doc"] {
-    // Inherits all Artifact theme enhancements
-  }
-
-  // DESIGN TAB: Uses standard Bootstrap/main site styling
-  .view-container[data-view="design"] {
-    letter-spacing: normal;
-    -webkit-font-smoothing: auto;
-    
-    h1, h2, h3, h4, h5, h6 {
-      letter-spacing: normal;
-    }
-    
-    .design-canvas {
-      .btn-primary {
-        background-color: $primary;
-        border-color: $primary;
-        box-shadow: $shadow-xs;
-        transform: none;
-        
-        &:hover {
-          background-color: darken($primary, 5%);
-          border-color: darken($primary, 5%);
-          transform: none;
-        }
-      }
-
-      .btn {
-        letter-spacing: normal;
-        transition: $transition-all;
-      }
-    }
-  }
-
-  // PREVIEW TAB: Dynamic theme styling from design selections
-  .view-container[data-view="preview"] {
-    // Theme colors applied dynamically via JavaScript
-    // See app_preview_controller.js
-    
-    letter-spacing: normal;
-    -webkit-font-smoothing: auto;
-    
-    h1, h2, h3, h4, h5, h6 {
-      letter-spacing: normal;
-    }
-    
-    .btn {
-      letter-spacing: normal;
-    }
-  }
-}
+// Import additional component partials
+@import "product-mockup-components";
+@import "product-mockup-views";

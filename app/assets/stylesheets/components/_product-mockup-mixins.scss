@@ -1,0 +1,196 @@
+// ============================================================================
+// PRODUCT MOCKUP MIXINS
+// ============================================================================
+// Reusable mixins for the product mockup interface
+
+// ========== LAYOUT MIXINS ==========
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@mixin flex-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+// ========== SHAPE MIXINS ==========
+@mixin circle($size) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+}
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin rounded-box($border-radius: $mockup-border-radius-md) {
+  border-radius: $border-radius;
+  overflow: hidden;
+}
+
+// ========== TYPOGRAPHY MIXINS ==========
+@mixin monospace {
+  font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', monospace;
+}
+
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+// ========== INTERACTION MIXINS ==========
+@mixin clickable {
+  cursor: pointer;
+  transition: $mockup-transition-base;
+  user-select: none;
+}
+
+@mixin hoverable($hover-bg: $mockup-bg-tertiary) {
+  @include clickable;
+  
+  &:hover {
+    background: $hover-bg;
+  }
+}
+
+@mixin active-state($active-bg: $mockup-bg-medium, $active-color: $mockup-text-primary) {
+  &.active {
+    background: $active-bg;
+    color: $active-color;
+  }
+}
+
+// ========== ANIMATION MIXINS ==========
+@mixin pulse-animation {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@mixin fade-animation($duration: 3s) {
+  animation: fadeInOut $duration ease-in-out infinite;
+}
+
+// Animation keyframes
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+// ========== RESPONSIVE MIXINS ==========
+@mixin mobile-only {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin tablet-only {
+  @media (min-width: 768px) and (max-width: 991px) {
+    @content;
+  }
+}
+
+@mixin desktop-only {
+  @media (min-width: 992px) {
+    @content;
+  }
+}
+
+@mixin hide-on-mobile {
+  @include mobile-only {
+    display: none;
+  }
+}
+
+@mixin hide-on-tablet {
+  @media (max-width: 991px) {
+    display: none;
+  }
+}
+
+// ========== COMPONENT MIXINS ==========
+@mixin card($padding: 1rem, $shadow: $mockup-shadow-sm) {
+  background: $mockup-bg-primary;
+  padding: $padding;
+  border-radius: $mockup-border-radius-md;
+  border: 1px solid $mockup-border-medium;
+  box-shadow: $shadow;
+}
+
+@mixin button-base {
+  @include clickable;
+  padding: 0.5rem 1rem;
+  border-radius: $mockup-border-radius-md;
+  border: none;
+  font-size: $mockup-font-size-base;
+  font-weight: 500;
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+@mixin input-base {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: $mockup-bg-secondary;
+  border: 1px solid $mockup-border-medium;
+  border-radius: $mockup-border-radius-md;
+  font-size: $mockup-font-size-base;
+  color: $mockup-text-primary;
+  transition: $mockup-transition-base;
+  
+  &:focus {
+    outline: none;
+    border-color: $mockup-accent-primary;
+    box-shadow: 0 0 0 3px rgba($mockup-accent-primary, 0.1);
+  }
+}
+
+@mixin scrollbar-custom {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $mockup-bg-secondary;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $mockup-border-dark;
+    border-radius: $mockup-border-radius-full;
+    
+    &:hover {
+      background: $mockup-text-quinary;
+    }
+  }
+}
+

@@ -1,0 +1,71 @@
+// ============================================================================
+// PRODUCT MOCKUP VARIABLES
+// ============================================================================
+// Component-specific variables for the product mockup interface
+
+// ========== LAYOUT ==========
+$mockup-sidebar-width: 16rem;
+$mockup-right-sidebar-width: 18rem;
+$mockup-interface-height: 100vh;
+$mockup-content-height: 500px;
+
+// ========== SPACING ==========
+$mockup-chrome-padding: 0.75rem;
+$mockup-sidebar-padding: 1rem;
+$mockup-content-padding: 3rem;
+$mockup-content-padding-mobile: 2rem 1rem;
+
+// ========== BORDER RADIUS ==========
+$mockup-border-radius: 0.75rem;
+$mockup-border-radius-sm: 0.25rem;
+$mockup-border-radius-md: 0.375rem;
+$mockup-border-radius-lg: 0.5rem;
+$mockup-border-radius-full: 9999px;
+
+// ========== COLORS ==========
+// Background colors
+$mockup-bg-primary: #FFFFFF;
+$mockup-bg-secondary: #FAFAF9;
+$mockup-bg-tertiary: #F5F5F4;
+$mockup-bg-chrome: #F9F8F0;
+
+// Text colors
+$mockup-text-primary: #1C1917;
+$mockup-text-secondary: #44403C;
+$mockup-text-tertiary: #57534E;
+$mockup-text-quaternary: #78716C;
+$mockup-text-quinary: #A8A29E;
+
+// Border colors
+$mockup-border-light: #F5F5F4;
+$mockup-border-medium: #E7E5E4;
+$mockup-border-dark: #D4D4D8;
+
+// Accent colors
+$mockup-accent-primary: #D95D39;
+$mockup-accent-hover: #B84A2B;
+
+// ========== TYPOGRAPHY ==========
+$mockup-font-size-xs: 0.625rem;
+$mockup-font-size-sm: 0.75rem;
+$mockup-font-size-base: 0.875rem;
+$mockup-font-size-md: 1rem;
+$mockup-font-size-lg: 1.125rem;
+$mockup-font-size-xl: 1.25rem;
+$mockup-font-size-2xl: 1.875rem;
+
+// ========== SHADOWS ==========
+$mockup-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$mockup-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$mockup-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+// ========== TRANSITIONS ==========
+$mockup-transition-fast: all 0.15s ease;
+$mockup-transition-base: all 0.2s ease;
+$mockup-transition-slow: all 0.3s ease;
+
+// ========== COMPONENT SIZES ==========
+$mockup-dot-size: 0.75rem;
+$mockup-checkbox-size: 1rem;
+$mockup-icon-size: 1.5rem;
+
