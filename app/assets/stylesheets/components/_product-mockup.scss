@@ -156,7 +156,7 @@
   margin: 0;
   border-radius: 0;
   border: none;
-  background: $background-card;
+  background: #FFFFFF;
   box-shadow: none;
   overflow: hidden;
   position: relative;
@@ -164,47 +164,59 @@
   flex-direction: column;
 
   .browser-chrome {
-    background: $background;
-    border-bottom: 1px solid $border-color;
-    padding: $spacer-md;
-    @include flex-between;
+    background: #F9F8F0;
+    border-bottom: 1px solid #E7E5E4;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+    position: relative;
 
     .dots {
       display: flex;
-      gap: $spacer-sm;
+      gap: 0.5rem;
+      align-items: center;
+      position: absolute;
+      left: 0.75rem;
+    }
 
-      .dot {
-        @include circle($spacer-md);
-        background: #D4D4D8;
-      }
+    .dot {
+      @include circle(0.75rem);
+      background: #D4D4D8;
     }
 
     .tabs {
       display: flex;
-      background: $stone-100;
-      border-radius: $border-radius-full;
-      padding: calc($spacer-xs / 2) $spacer-xs;
+      background: #F5F5F4;
+      border-radius: 9999px;
+      padding: 0.125rem 0.25rem;
 
       .tab {
-        padding: $spacer-xs $spacer-lg;
-        border-radius: $border-radius-full;
-        font-size: $font-size-2xs;
-        font-weight: $font-weight-medium;
-        color: $text-tertiary;
+        padding: 0.25rem 1rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #78716C;
         cursor: pointer;
-        transition: $transition-all;
+        transition: all 0.2s ease;
+        white-space: nowrap;
 
         &.active {
-          background: $background-card;
-          color: $text-primary;
-          box-shadow: $shadow-xs;
+          background: #FFFFFF;
+          color: #1C1917;
+          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
         &:hover:not(.active) {
-          color: $text-primary;
+          color: #1C1917;
         }
       }
+    }
+
+    .tab-spacer {
+      position: absolute;
+      right: 0.75rem;
     }
   }
 
@@ -216,9 +228,9 @@
 
     .sidebar {
       width: 16rem;
-      border-right: 1px solid $stone-100;
-      background: $stone-50;
-      padding: $spacer-lg;
+      border-right: 1px solid #F5F5F4;
+      background: #FAFAF9;
+      padding: 1rem;
       overflow-y: auto;
       flex-shrink: 0;
 
@@ -227,46 +239,47 @@
       }
 
       .sidebar-company-header {
-        font-weight: $font-weight-semibold;
-        color: $text-primary;
+        font-weight: 600;
+        color: #1C1917;
+        font-size: 0.875rem;
       }
 
       .sidebar-item {
-        padding: $spacer-xs $spacer-sm;
-        font-size: $font-size-2xs;
-        font-weight: $font-weight-medium;
-        color: $text-secondary;
-        border-radius: $border-radius-sm;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #57534E;
+        border-radius: 0.25rem;
         cursor: pointer;
-        transition: $transition-background;
+        transition: background 0.2s ease;
 
         &:hover {
-          background: $stone-200;
+          background: #E7E5E4;
         }
 
         &.active {
-          background: $stone-200;
-          color: $text-primary;
+          background: #E7E5E4;
+          color: #1C1917;
         }
       }
     }
 
     .main-editor {
       flex: 1;
-      overflow: hidden;
-      background: $background-card;
+      overflow-y: auto;
+      background: #FFFFFF;
       position: relative;
       display: flex;
       flex-direction: column;
 
       .view-container {
         display: none;
-        padding: $spacer-4xl;
-        height: 100%;
+        padding: 3rem;
+        min-height: 100%;
         overflow-y: auto;
 
         @include mobile-only {
-          padding: $spacer-2xl $spacer-lg;
+          padding: 2rem 1rem;
         }
 
         &.active {
@@ -275,50 +288,50 @@
       }
 
       .breadcrumb-text {
-        font-size: $font-size-2xs;
-        color: $text-quaternary;
-        margin-bottom: $spacer-lg;
+        font-size: 0.75rem;
+        color: #A8A29E;
+        margin-bottom: 1rem;
       }
 
       .editor-title {
-        font-size: $font-size-3xl;
-        font-weight: $font-weight-bold;
+        font-size: 1.875rem;
+        font-weight: 700;
         font-family: $font-family-serif;
-        color: $text-primary;
-        margin-bottom: $spacer-xl;
+        color: #1C1917;
+        margin-bottom: 1.5rem;
       }
 
       .ai-summary {
-        padding: $spacer-md;
-        background: $stone-50;
-        border: 1px solid $stone-100;
-        border-radius: $border-radius;
-        color: $text-tertiary;
-        font-size: $font-size-sm;
+        padding: 0.75rem;
+        background: #FAFAF9;
+        border: 1px solid #F5F5F4;
+        border-radius: 0.375rem;
+        color: #78716C;
+        font-size: 0.875rem;
         font-style: italic;
-        margin-bottom: $spacer-xl;
+        margin-bottom: 1.5rem;
       }
 
       .checkbox {
-        @include square($spacer-lg);
-        margin-top: $spacer-xs;
+        @include square(1rem);
+        margin-top: 0.25rem;
         border: 1px solid #D4D4D8;
-        border-radius: $border-radius-sm;
+        border-radius: 0.25rem;
         flex-shrink: 0;
         cursor: pointer;
-        transition: $transition-all;
+        transition: all 0.2s ease;
 
         &:hover {
-          border-color: $secondary;
+          border-color: #D95D39;
           transform: scale(1.1);
         }
 
         &.checked {
-          background: $secondary;
-          border-color: $secondary;
+          background: #D95D39;
+          border-color: #D95D39;
           @include flex-center;
-          color: $text-white;
-          font-size: $font-size-xs;
+          color: #FFFFFF;
+          font-size: 0.625rem;
         }
       }
 
@@ -352,9 +365,9 @@
 
     .right-sidebar {
       width: 18rem;
-      border-left: 1px solid $stone-100;
-      background: $stone-50;
-      padding: $spacer-lg;
+      border-left: 1px solid #F5F5F4;
+      background: #FAFAF9;
+      padding: 1rem;
       overflow-y: auto;
       flex-shrink: 0;
 
@@ -363,54 +376,57 @@
       }
 
       .tab-bar {
-        background: $stone-100;
+        background: #E7E5E4;
+        border-radius: 0.5rem;
+        padding: 0.25rem;
       }
 
       .tab-bar-item {
-        padding: $spacer-xs;
-        font-size: $font-size-2xs;
-        font-weight: $font-weight-medium;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 500;
         cursor: pointer;
-        border-radius: $border-radius-sm;
-        transition: $transition-all;
+        border-radius: 0.375rem;
+        transition: all 0.15s ease;
+        text-align: center;
 
         &.tab-bar-item-active {
-          background: $background-card;
-          color: $text-primary;
-          box-shadow: $shadow-xs;
+          background: #FFFFFF;
+          color: #1C1917;
+          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
         &.tab-bar-item-inactive {
-          color: $text-tertiary;
+          color: #78716C;
 
           &:hover {
-            color: $text-primary;
+            color: #44403C;
           }
         }
       }
 
       .template-card {
-        background: $background-card;
-        padding: $spacer-md;
-        border-radius: $border-radius;
-        border: 1px solid $border-color;
-        box-shadow: $shadow-xs;
-        margin-bottom: $spacer-md;
+        background: #FFFFFF;
+        padding: 0.75rem;
+        border-radius: 0.375rem;
+        border: 1px solid #E7E5E4;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        margin-bottom: 0.75rem;
 
         &:last-child {
-          opacity: $opacity-60;
+          opacity: 0.6;
         }
 
         .card-title {
-          font-size: $font-size-2xs;
-          font-weight: $font-weight-bold;
-          color: $text-primary;
-          margin-bottom: $spacer-xs;
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: #1C1917;
+          margin-bottom: 0.25rem;
         }
 
         .card-desc {
-          font-size: $font-size-xs;
-          color: $text-tertiary;
+          font-size: 0.625rem;
+          color: #78716C;
         }
       }
     }
@@ -422,216 +438,310 @@
 // ============================================================================
 .product-mockup {
   .design-header-title {
-    font-size: $font-size-lg;
-    font-weight: $font-weight-bold;
-    color: $text-primary;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1C1917;
     margin: 0;
   }
 
   .btn-publish {
-    padding: $spacer-sm $spacer-lg;
-    font-size: $font-size-sm;
+    padding: 10px 20px;
+    font-size: 14px;
   }
 
   .template-heading {
-    font-size: $font-size-lg;
-    font-weight: $font-weight-bold;
-    color: $text-primary;
-    margin-bottom: $spacer-lg;
-  }
-
-  .template-selector {
-    cursor: pointer;
-    border: 2px solid transparent;
-    border-radius: $border-radius;
-    overflow: hidden;
-    transition: $transition-all;
-
-    &:hover {
-      border-color: $border-color;
-      transform: translateY(-2px);
-      box-shadow: $shadow-md;
-    }
-
-    &.active {
-      border-color: $primary;
-      box-shadow: 0 0 0 3px rgba($primary, 0.1);
-    }
-
-    .template-preview {
-      height: 100px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .gradient-minimalist {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-
-    .gradient-bold {
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    }
-
-    .gradient-corporate {
-      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    }
-
-    .gradient-organic {
-      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-    }
-
-    .template-decoration-circle {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      top: 20px;
-      left: 20px;
-    }
-
-    .template-decoration-shape {
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background: rgba(255, 255, 255, 0.2);
-      bottom: 15px;
-      right: 15px;
-      border-radius: $border-radius-sm;
-    }
-
-    .template-decoration-line {
-      position: absolute;
-      width: 60%;
-      height: 2px;
-      background: rgba(255, 255, 255, 0.3);
-      bottom: 30px;
-      left: 20px;
-    }
-
-    .template-decoration-organic {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-      svg {
-        width: 50px;
-        height: 50px;
-        opacity: 0.3;
-      }
-    }
-
-    .template-info {
-      padding: $spacer-md;
-      background: $background-card;
-
-      .template-name {
-        font-size: $font-size-sm;
-        font-weight: $font-weight-semibold;
-        color: $text-primary;
-        margin-bottom: 4px;
-      }
-
-      .template-desc {
-        font-size: $font-size-2xs;
-        color: $text-tertiary;
-      }
-    }
-  }
-
-  .theme-section {
-    .theme-section-header {
-      @include flex-between;
-      cursor: pointer;
-      padding: $spacer-md;
-      background: $stone-50;
-      border-radius: $border-radius;
-      transition: $transition-background;
-
-      &:hover {
-        background: $stone-100;
-      }
-
-      &.collapsed {
-        .chevron {
-          transform: rotate(-90deg);
-        }
-      }
-
-      .theme-section-title {
-        font-size: $font-size-base;
-        font-weight: $font-weight-semibold;
-        color: $text-primary;
-        margin: 0;
-      }
-
-      .chevron {
-        transition: transform 0.2s ease;
-        color: $text-tertiary;
-      }
-    }
-
-    .theme-section-content {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: all 0.3s ease;
-      padding: 0 $spacer-md;
-
-      &.active {
-        max-height: 1000px;
-        opacity: 1;
-        padding: $spacer-lg $spacer-md;
-      }
-    }
-
-    .theme-section-desc {
-      font-size: $font-size-sm;
-      color: $text-tertiary;
-      margin-bottom: $spacer-lg;
-    }
+    font-size: 20px;
+    font-weight: 700;
+    color: #1C1917;
+    margin-bottom: 20px;
   }
 
   .color-palette-heading {
-    font-size: $font-size-sm;
-    font-weight: $font-weight-semibold;
-    color: $text-secondary;
-    margin-bottom: $spacer-md;
+    font-size: 14px;
+    font-weight: 600;
+    color: #44403C;
+    margin-bottom: 16px;
+  }
+}
+
+// ============================================
+// PRODUCT MOCKUP COMPONENTS
+// ============================================
+// Component styles specific to the product mockup
+// Extracted from global utilities and cards to prevent namespace pollution
+
+// ========== TEMPLATE SELECTOR ==========
+
+.template-selector {
+  border: 2px solid transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #E7E5E4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
 
-  .color-swatch-container {
-    .color-swatch {
-      width: 100%;
-      aspect-ratio: 1;
-      border-radius: $border-radius;
-      cursor: pointer;
-      transition: $transition-transform;
-      border: 2px solid transparent;
+  &.active {
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
 
-      &:hover {
-        transform: scale(1.05);
-      }
+  .template-preview {
+    height: 8rem;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
 
-      &.active {
-        border-color: $text-primary;
-        box-shadow: 0 0 0 3px rgba($text-primary, 0.1);
-      }
-    }
+  .template-info {
+    background: #FFFFFF;
+    padding: 16px;
+    border-top: 1px solid #F5F5F4;
+  }
 
-    .color-label {
-      font-size: $font-size-2xs;
-      color: $text-secondary;
-      margin-top: $spacer-sm;
-      @include monospace;
-    }
+  .template-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1C1917;
+    margin-bottom: 6px;
+  }
 
-    .color-value {
-      font-size: $font-size-2xs;
-      color: $text-tertiary;
-      @include monospace;
+  .template-desc {
+    font-size: 13px;
+    color: #78716C;
+    line-height: 1.3;
+  }
+
+  .template-decoration-circle {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    top: 20px;
+    left: 20px;
+  }
+
+  .template-decoration-shape {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    bottom: 15px;
+    right: 15px;
+    border-radius: $border-radius-sm;
+  }
+
+  .template-decoration-line {
+    position: absolute;
+    width: 60%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    bottom: 30px;
+    left: 20px;
+  }
+
+  .template-decoration-organic {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    svg {
+      width: 50px;
+      height: 50px;
+      opacity: 0.3;
     }
   }
+}
+
+// ========== THEME SECTION ACCORDION ==========
+
+.theme-section {
+  background: #FFFFFF;
+  border: 1px solid #E7E5E4;
+  border-radius: 12px;
+  overflow: hidden;
+
+  .theme-section-header {
+    @include flex-between;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: #FAFAF9;
+    }
+
+    .chevron {
+      transition: transform 0.2s ease;
+      color: #78716C;
+    }
+
+    &.collapsed .chevron {
+      transform: rotate(-90deg);
+    }
+  }
+
+  .theme-section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1C1917;
+    margin: 0;
+  }
+
+  .theme-section-content {
+    padding: 0 20px 20px;
+    display: none;
+    border-top: 1px solid #F5F5F4;
+    padding-top: 16px;
+
+    &.active {
+      display: block;
+    }
+  }
+
+  .theme-section-desc {
+    font-size: 14px;
+    color: #78716C;
+    margin-bottom: 24px;
+  }
+}
+
+// ========== COLOR SWATCHES ==========
+
+.color-swatch-container {
+  .color-swatch {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    &.active {
+      border-color: #1C1917;
+      box-shadow: 0 0 0 3px rgba(28, 25, 23, 0.1);
+    }
+
+    // Set background colors from data attributes
+    &[data-swatch-color="#A5B4FC"] { background: #A5B4FC; }
+    &[data-swatch-color="#2563EB"] { background: #2563EB; }
+    &[data-swatch-color="#0D3C9A"] { background: #0D3C9A; }
+    &[data-swatch-color="#A7F3D0"] { background: #A7F3D0; }
+    &[data-swatch-color="#FDE68A"] { background: #FDE68A; }
+    &[data-swatch-color="#FCA5A5"] { background: #FCA5A5; }
+  }
+
+  .color-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1C1917;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
+  .color-value {
+    font-size: 12px;
+    color: #78716C;
+    @include monospace;
+  }
+}
+
+// ========== PREVIEW PHONE ==========
+
+.preview-phone {
+  background: #FFFFFF;
+  border: 8px solid #1C1917;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  margin: 0 auto;
+}
+
+.preview-phone-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.preview-phone-content {
+  text-align: left;
+}
+
+// ========== DESIGN CANVAS ==========
+
+.design-canvas {
+  padding: 24px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+// ========== NESTED TASK WRAPPER ==========
+
+.nested-task-wrapper {
+  margin-left: 24px;
+  margin-bottom: 20px;
+}
+
+// ========== SIDEBAR COMPANY HEADER ==========
+
+.sidebar-company-header {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1C1917;
+}
+
+// ========== GRADIENT UTILITIES ==========
+
+.gradient-minimalist {
+  background: linear-gradient(135deg, #FED7D7 0%, #C4B5B0 100%);
+  position: relative;
+}
+
+.gradient-bold {
+  background: linear-gradient(135deg, #FDE68A 0%, #F97316 50%, #3B82F6 100%);
+}
+
+.gradient-corporate {
+  background: linear-gradient(180deg, #374151 0%, #1F2937 100%);
+  position: relative;
+}
+
+.gradient-organic {
+  background: linear-gradient(135deg, #FED7D7 0%, #DDFAD9 100%);
+  position: relative;
+}
+
+// ========== TAB BAR ==========
+
+.tab-bar {
+  background: $border-color;
+}
+
+.tab-bar-item {
+  font-size: $font-size-2xs;
+  font-weight: $font-weight-medium;
+  padding: $spacer-xs;
+}
+
+.tab-bar-item-active {
+  background: $background-card;
+  border-radius: $border-radius-sm;
+  box-shadow: $shadow-xs;
+}
+
+.tab-bar-item-inactive {
+  color: $text-tertiary;
 }
 
 // ============================================================================
@@ -641,7 +751,7 @@
   .preview-container {
     @include flex-center;
     height: 100%;
-    padding: $spacer-2xl;
+    padding: 32px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   }
 
@@ -651,43 +761,40 @@
 
   .preview-phone {
     width: 280px;
-    background: $background-card;
-    border-radius: $border-radius-xl;
-    box-shadow: $shadow-2xl;
     overflow: hidden;
 
     .preview-phone-header {
-      padding: $spacer-lg;
-      background: $background;
-      border-bottom: 1px solid $border-color;
+      padding: 20px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #E7E5E4;
 
       .preview-app-title {
-        font-size: $font-size-lg;
-        font-weight: $font-weight-bold;
-        color: $text-primary;
+        font-size: 18px;
+        font-weight: 700;
+        color: #1C1917;
         margin-bottom: 4px;
       }
 
       .preview-app-subtitle {
-        font-size: $font-size-2xs;
-        color: $text-tertiary;
+        font-size: 13px;
+        color: #78716C;
       }
     }
 
     .preview-phone-content {
-      padding: $spacer-lg;
-      background: $background-card;
+      padding: 20px;
+      background: #FAFAF9;
       max-height: 400px;
       overflow-y: auto;
 
       .task-section-label {
-        font-size: $font-size-2xs;
-        font-weight: $font-weight-bold;
-        color: $text-tertiary;
+        font-size: 11px;
+        font-weight: 700;
+        color: #78716C;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        margin-bottom: $spacer-sm;
-        margin-top: $spacer-md;
+        margin-bottom: 8px;
+        margin-top: 16px;
 
         &:first-child {
           margin-top: 0;
@@ -701,29 +808,24 @@
       }
 
       .task-item-wrapper {
-        padding: $spacer-sm;
-        border-radius: $border-radius-sm;
-        transition: $transition-background;
+        padding: 10px;
+        border-radius: 6px;
+        transition: background 0.15s ease;
 
         &:hover {
-          background: $stone-50;
+          background: #F5F5F4;
         }
       }
 
       .task-item-wrapper-small {
-        padding: $spacer-xs $spacer-sm;
-        border-radius: $border-radius-sm;
+        padding: 6px 10px;
+        border-radius: 6px;
         background: rgba(167, 243, 208, 0.2);
-        transition: $transition-background;
+        transition: background 0.15s ease;
 
         &:hover {
           background: rgba(167, 243, 208, 0.3);
         }
-      }
-
-      .nested-task-wrapper {
-        margin-left: $spacer-lg;
-        margin-bottom: $spacer-md;
       }
     }
   }
