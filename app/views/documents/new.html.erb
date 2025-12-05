@@ -1,0 +1,67 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Projects", projects_path %></li>
+    <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
+    <li class="breadcrumb-item active">New Document</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-lg-10 mx-auto">
+    <div class="card shadow">
+      <div class="card-body p-4">
+        <h2 class="card-title mb-4">Create New Document</h2>
+        
+        <%= form_with model: [@project, @document], local: true do |f| %>
+          <% if @document.errors.any? %>
+            <div class="alert alert-danger">
+              <h5><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h5>
+              <ul class="mb-0">
+                <% @document.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="mb-3">
+            <%= f.label :title, class: "form-label" %>
+            <%= f.text_field :title, class: "form-control form-control-lg", placeholder: "e.g., User Authentication Feature", autofocus: true %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :document_type, "Type", class: "form-label" %>
+            <%= f.select :document_type, 
+              [
+                ['Specification', 'specification'],
+                ['Feature', 'feature'],
+                ['Component', 'component'],
+                ['Page', 'page'],
+                ['API', 'api'],
+                ['Database', 'database']
+              ], 
+              {}, 
+              class: "form-select" 
+            %>
+            <small class="form-text text-muted">
+              Choose the type of document that best describes what you're building
+            </small>
+          </div>
+
+          <div class="mb-4">
+            <%= f.label :content, class: "form-label" %>
+            <%= f.text_area :content, class: "form-control font-monospace", rows: 15, placeholder: "Describe what you want to build...\n\n# Overview\nProvide a high-level description\n\n# Requirements\n- List your requirements\n- Be specific about functionality\n\n# User Stories\n- As a user, I want to..." %>
+            <small class="form-text text-muted">
+              Use markdown formatting to structure your specification. The AI will use this to generate your application.
+            </small>
+          </div>
+
+          <div class="d-flex gap-2">
+            <%= f.submit "Create Document", class: "btn btn-primary btn-lg" %>
+            <%= link_to "Cancel", @project, class: "btn btn-outline-secondary btn-lg" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Projects", projects_path %></li>
+    <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
+    <li class="breadcrumb-item"><%= link_to @document.title, project_document_path(@project, @document) %></li>
+    <li class="breadcrumb-item active">Version <%= @version.version_number %></li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white">
+        <div class="d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">
+            <span class="badge bg-primary me-2">v<%= @version.version_number %></span>
+            <%= @document.title %>
+          </h3>
+          <span class="badge bg-<%= @version.status == 'deployed' ? 'success' : @version.status == 'committed' ? 'info' : 'secondary' %> fs-6">
+            <%= @version.status.capitalize %>
+          </span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <strong>Commit Message:</strong>
+          <p class="text-muted"><%= @version.commit_message || 'No commit message' %></p>
+        </div>
+        
+        <% if @version.committed_at %>
+          <div class="mb-3">
+            <strong>Committed:</strong>
+            <p class="text-muted"><%= @version.committed_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+          </div>
+        <% end %>
+
+        <hr>
+
+        <h5 class="mb-3">Content Snapshot</h5>
+        <div class="document-content prose bg-light p-3 rounded">
+          <%= simple_format(@version.content) %>
+        </div>
+      </div>
+      <div class="card-footer bg-white">
+        <div class="d-flex gap-2">
+          <%= link_to project_document_path(@project, @document), class: "btn btn-outline-secondary" do %>
+            <i class="fas fa-arrow-left me-1"></i>Back to Document
+          <% end %>
+          
+          <% if @version.status == 'committed' %>
+            <%= button_to deploy_project_document_version_path(@project, @document, @version), method: :post, class: "btn btn-success" do %>
+              <i class="fas fa-rocket me-1"></i>Deploy This Version
+            <% end %>
+          <% end %>
+          
+          <% if @version.status == 'deployed' %>
+            <%= button_to rollback_project_document_version_path(@project, @document, @version), method: :post, class: "btn btn-warning" do %>
+              <i class="fas fa-undo me-1"></i>Rollback
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white">
+        <h5 class="mb-0">Version Information</h5>
+      </div>
+      <div class="card-body">
+        <dl class="mb-0">
+          <dt>Version Number</dt>
+          <dd><span class="badge bg-primary">v<%= @version.version_number %></span></dd>
+          
+          <dt class="mt-3">Status</dt>
+          <dd>
+            <span class="badge bg-<%= @version.status == 'deployed' ? 'success' : @version.status == 'committed' ? 'info' : 'secondary' %>">
+              <%= @version.status.capitalize %>
+            </span>
+          </dd>
+          
+          <dt class="mt-3">Document</dt>
+          <dd><%= link_to @document.title, project_document_path(@project, @document) %></dd>
+          
+          <dt class="mt-3">Project</dt>
+          <dd><%= link_to @project.name, @project %></dd>
+        </dl>
+      </div>
+    </div>
+
+    <% if @version.status == 'deployed' %>
+      <div class="card shadow-sm mt-3">
+        <div class="card-body text-center">
+          <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+          <h5>Currently Deployed</h5>
+          <p class="text-muted">This version is live in production</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

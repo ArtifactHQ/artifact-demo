@@ -1,0 +1,96 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Projects", projects_path %></li>
+    <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
+    <li class="breadcrumb-item"><%= link_to @document.title, project_document_path(@project, @document) %></li>
+    <li class="breadcrumb-item active">Preview</li>
+  </ol>
+</nav>
+
+<div class="row mb-3">
+  <div class="col">
+    <h2>
+      <i class="fas fa-play-circle me-2 text-success"></i>
+      Preview: <%= @document.title %>
+    </h2>
+  </div>
+  <div class="col-auto">
+    <%= link_to project_document_path(@project, @document), class: "btn btn-outline-secondary" do %>
+      <i class="fas fa-arrow-left me-1"></i>Back to Document
+    <% end %>
+  </div>
+</div>
+
+<div class="card shadow-lg">
+  <div class="card-header bg-dark text-white">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <i class="fas fa-magic me-2"></i>
+        <strong>AI-Generated Application Preview</strong>
+      </div>
+      <div>
+        <span class="badge bg-success">Live Preview</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body p-0">
+    <div class="alert alert-warning m-3 mb-0">
+      <i class="fas fa-info-circle me-2"></i>
+      <strong>Preview Mode:</strong> This shows what the AI would generate based on your specification. 
+      Deploy a version to create the actual application.
+    </div>
+    
+    <div class="p-4 bg-light" style="min-height: 600px;">
+      <div class="text-center py-5">
+        <div class="spinner-border text-primary mb-3" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <h4>Generating Preview...</h4>
+        <p class="text-muted">The AI is analyzing your specification and creating a preview</p>
+        
+        <div class="mt-4 p-4 bg-white rounded shadow-sm text-start" style="max-width: 800px; margin: 0 auto;">
+          <h5 class="mb-3">Based on your specification:</h5>
+          <div class="alert alert-light border">
+            <pre class="mb-0" style="white-space: pre-wrap;"><%= @document.content %></pre>
+          </div>
+          
+          <h5 class="mt-4 mb-3">AI would generate:</h5>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <i class="fas fa-check text-success me-2"></i>
+              Database schema and models
+            </li>
+            <li class="list-group-item">
+              <i class="fas fa-check text-success me-2"></i>
+              RESTful API endpoints
+            </li>
+            <li class="list-group-item">
+              <i class="fas fa-check text-success me-2"></i>
+              User interface components
+            </li>
+            <li class="list-group-item">
+              <i class="fas fa-check text-success me-2"></i>
+              Business logic and validations
+            </li>
+            <li class="list-group-item">
+              <i class="fas fa-check text-success me-2"></i>
+              Tests and documentation
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer bg-white">
+    <div class="d-flex justify-content-between align-items-center">
+      <small class="text-muted">
+        <i class="fas fa-lightbulb me-1"></i>
+        Tip: Commit a version to deploy this to production
+      </small>
+      <%= link_to edit_project_document_path(@project, @document), class: "btn btn-primary" do %>
+        <i class="fas fa-edit me-1"></i>Edit Specification
+      <% end %>
+    </div>
+  </div>
+</div>
+

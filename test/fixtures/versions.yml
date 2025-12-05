@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  document: one
+  version_number: 1
+  content: MyText
+  commit_message: MyString
+  committed_at: 2025-12-05 00:36:51
+  status: MyString
+
+two:
+  document: two
+  version_number: 1
+  content: MyText
+  commit_message: MyString
+  committed_at: 2025-12-05 00:36:51
+  status: MyString

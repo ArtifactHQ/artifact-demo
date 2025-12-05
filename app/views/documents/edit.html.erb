@@ -1,0 +1,78 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Projects", projects_path %></li>
+    <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
+    <li class="breadcrumb-item"><%= link_to @document.title, project_document_path(@project, @document) %></li>
+    <li class="breadcrumb-item active">Edit</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-lg-10 mx-auto">
+    <div class="card shadow">
+      <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="card-title mb-0">Edit Document</h2>
+          <div class="text-muted">
+            <small>Last saved: <%= time_ago_in_words(@document.updated_at) %> ago</small>
+          </div>
+        </div>
+        
+        <%= form_with model: [@project, @document], local: true, data: { controller: "autosave" } do |f| %>
+          <% if @document.errors.any? %>
+            <div class="alert alert-danger">
+              <h5><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h5>
+              <ul class="mb-0">
+                <% @document.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="mb-3">
+            <%= f.label :title, class: "form-label" %>
+            <%= f.text_field :title, class: "form-control form-control-lg" %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :document_type, "Type", class: "form-label" %>
+            <%= f.select :document_type, 
+              [
+                ['Specification', 'specification'],
+                ['Feature', 'feature'],
+                ['Component', 'component'],
+                ['Page', 'page'],
+                ['API', 'api'],
+                ['Database', 'database']
+              ], 
+              {}, 
+              class: "form-select" 
+            %>
+          </div>
+
+          <div class="mb-4">
+            <%= f.label :content, class: "form-label" %>
+            <%= f.text_area :content, class: "form-control font-monospace", rows: 20, style: "resize: vertical; min-height: 400px;" %>
+            <small class="form-text text-muted">
+              <i class="fas fa-lightbulb me-1"></i>Tip: Use markdown formatting. Changes are used by the AI to generate your application.
+            </small>
+          </div>
+
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Remember to commit your changes!</strong> After saving, create a new version from the document page to track this update.
+          </div>
+
+          <div class="d-flex gap-2">
+            <%= f.submit "Save Changes", class: "btn btn-primary btn-lg" %>
+            <%= link_to "Cancel", project_document_path(@project, @document), class: "btn btn-outline-secondary btn-lg" %>
+            <%= button_to project_document_path(@project, @document), method: :delete, data: { turbo_confirm: "Are you sure you want to delete this document?" }, class: "btn btn-outline-danger btn-lg ms-auto" do %>
+              <i class="fas fa-trash me-1"></i>Delete Document
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="row mb-4">
+  <div class="col">
+    <h1 class="display-4">Projects</h1>
+    <p class="lead">Build production-grade applications with AI-powered no-code development</p>
+  </div>
+  <div class="col-auto">
+    <%= link_to new_project_path, class: "btn btn-primary btn-lg" do %>
+      <i class="fas fa-plus me-2"></i>New Project
+    <% end %>
+  </div>
+</div>
+
+<% if @projects.any? %>
+  <div class="row g-4">
+    <% @projects.each do |project| %>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm hover-shadow">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <h5 class="card-title mb-0"><%= project.name %></h5>
+              <span class="badge bg-<%= project.status == 'active' ? 'success' : project.status == 'draft' ? 'secondary' : 'warning' %>">
+                <%= project.status.capitalize %>
+              </span>
+            </div>
+            <p class="card-text text-muted"><%= truncate(project.description, length: 120) %></p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <small class="text-muted">
+                <i class="fas fa-file-alt me-1"></i><%= project.document_count %> documents
+              </small>
+              <small class="text-muted">
+                Updated <%= time_ago_in_words(project.updated_at) %> ago
+              </small>
+            </div>
+          </div>
+          <div class="card-footer bg-transparent border-top-0">
+            <div class="d-flex gap-2">
+              <%= link_to project, class: "btn btn-sm btn-outline-primary flex-grow-1" do %>
+                <i class="fas fa-eye me-1"></i>View
+              <% end %>
+              <%= link_to edit_project_path(project), class: "btn btn-sm btn-outline-secondary" do %>
+                <i class="fas fa-edit"></i>
+              <% end %>
+              <%= button_to project_path(project), method: :delete, data: { turbo_confirm: "Are you sure you want to delete this project?" }, class: "btn btn-sm btn-outline-danger" do %>
+                <i class="fas fa-trash"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="text-center py-5">
+    <i class="fas fa-folder-open fa-4x text-muted mb-3"></i>
+    <h3>No projects yet</h3>
+    <p class="text-muted">Create your first project to get started building with AI</p>
+    <%= link_to new_project_path, class: "btn btn-primary btn-lg mt-3" do %>
+      <i class="fas fa-plus me-2"></i>Create Your First Project
+    <% end %>
+  </div>
+<% end %>
